@@ -1,0 +1,6 @@
+<game>
+  <name>ns2</name>
+  <description>Last Resistance</description>  
+  <server>lua/lr_Server.lua</server>  
+  <client>lua/lr_Client.lua</client>  
+</game>

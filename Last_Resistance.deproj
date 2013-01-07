@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <file>
+    <filename>lua\TeamJoin.lua</filename>
+  </file>
+  <file>
+    <filename>lua\lr_Client.lua</filename>
+  </file>
+  <file>
+    <filename>lua\lr_Server.lua</filename>
+  </file>
+</project>

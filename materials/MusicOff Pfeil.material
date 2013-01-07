@@ -1,0 +1,2 @@
+shader = "materials/editor/billboard.surface_shader"
+emissiveMap = "materials/MusicOff Pfeil.dds"
