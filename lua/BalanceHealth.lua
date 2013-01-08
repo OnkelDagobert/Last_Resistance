@@ -9,19 +9,19 @@
 // ========= For more information, visit us at http://www.unknownworlds.com =====================		
 		
 // HEALTH AND ARMOR		
-kMarineHealth = 100	kMarineArmor = 30	kMarinePointValue = 5
-kJetpackHealth = 100	kJetpackArmor = 30	kJetpackPointValue = 10
-kExosuitHealth = 100	kExosuitArmor = 400	kExosuitPointValue = 20
+kMarineHealth = 100	kMarineArmor = 30	kMarinePointValue = 10
+kJetpackHealth = 100	kJetpackArmor = 30	kJetpackPointValue = 20
+kExosuitHealth = 100	kExosuitArmor = 400	kExosuitPointValue = 40
 		
-kSkulkHealth = 70	kSkulkArmor = 10	kSkulkPointValue = 5
-kGorgeHealth = 150	kGorgeArmor = 70	kGorgePointValue = 7
-kLerkHealth = 125	kLerkArmor = 50	kLerkPointValue = 15
-kFadeHealth = 350	kFadeArmor = 50	kFadePointValue = 20
-kOnosHealth = 1300	kOnosArmor = 500	kOnosPointValue = 30
+kSkulkHealth = 70	kSkulkArmor = 10	kSkulkPointValue = 0
+kGorgeHealth = 150	kGorgeArmor = 70	kGorgePointValue = 0
+kLerkHealth = 125	kLerkArmor = 50	kLerkPointValue = 0
+kFadeHealth = 350	kFadeArmor = 50	kFadePointValue = 0
+kOnosHealth = 1300	kOnosArmor = 500	kOnosPointValue = 0
 		
-kEggHealth = 350	kEggArmor = 0	kEggPointValue = 2
+kEggHealth = 350	kEggArmor = 0	kEggPointValue = 0
 kMatureEggHealth = 350	kMatureEggArmor = 25
-kBabblerHealth = 30	kBabblerArmor = 0	kBabblerPointValue = 1
+kBabblerHealth = 30	kBabblerArmor = 0	kBabblerPointValue = 0
 		
 kArmorPerUpgradeLevel = 20
 kExosuitArmorPerUpgradeLevel = 60

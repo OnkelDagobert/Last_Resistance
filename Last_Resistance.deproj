@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
   <file>
+    <filename>lua\AlienTeam.lua</filename>
+  </file>
+  <file>
+    <filename>lua\Balance.lua</filename>
+  </file>
+  <file>
+    <filename>lua\BalanceHealth.lua</filename>
+  </file>
+  <file>
+    <filename>lua\ConstructMixin.lua</filename>
+  </file>
+  <file>
+    <filename>lua\DamageTypes.lua</filename>
+  </file>
+  <file>
+    <filename>lua\EncrustMixin.lua</filename>
+  </file>
+  <file>
+    <filename>lua\Fade.lua</filename>
+  </file>
+  <file>
+    <filename>lua\GUIBulletDisplay.lua</filename>
+  </file>
+  <file>
+    <filename>lua\GUINotifications.lua</filename>
+  </file>
+  <file>
+    <filename>lua\Marine.lua</filename>
+  </file>
+  <file>
+    <filename>lua\MarineTeam.lua</filename>
+  </file>
+  <file>
+    <filename>lua\NS2ConsoleCommands_Server.lua</filename>
+  </file>
+  <file>
+    <filename>lua\NS2Gamerules.lua</filename>
+  </file>
+  <file>
+    <filename>lua\ParasiteMixin.lua</filename>
+  </file>
+  <file>
+    <filename>lua\PointGiverMixin.lua</filename>
+  </file>
+  <file>
+    <filename>lua\PowerPoint.lua</filename>
+  </file>
+  <file>
+    <filename>lua\Skulk.lua</filename>
+  </file>
+  <file>
     <filename>lua\TeamJoin.lua</filename>
   </file>
   <file>
