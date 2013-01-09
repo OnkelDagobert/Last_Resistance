@@ -577,7 +577,7 @@ function PlayingTeam:RespawnPlayer(player, origin, angles)
     elseif initialTechPoint ~= nil then
     
         //Get Random powerPoint (ISSUE #2)
-        local powerPoints = GetEntitiesMatchAnyTypes({"PowerPoint","CommandStructure"})
+        local powerPoints = GetEntitiesMatchAnyTypes({"PowerPoint","CommandStructure","ResourcePoint","TechPoint","Door"})
         
     
         // Compute random spawn location
@@ -587,7 +587,11 @@ function PlayingTeam:RespawnPlayer(player, origin, angles)
             spawnOrigin = GetRandomSpawnForCapsule(capsuleHeight, capsuleRadius, initialTechPoint:GetOrigin(), 2, 15, EntityFilterAll())
         else
             local c_powerPoint = powerPoints[math.random( #powerPoints )]
-            spawnOrigin = GetRandomSpawnForCapsule(capsuleHeight, capsuleRadius, c_powerPoint:GetOrigin(), 2, 15, EntityFilterAll())
+            spawnOrigin = GetRandomSpawnForCapsule(capsuleHeight, capsuleRadius, c_powerPoint:GetOrigin(), 2, 40, EntityFilterAll())
+            if spawnOrigin == nil then
+                c_powerPoint = powerPoints[math.random( #powerPoints )]
+                spawnOrigin = GetRandomSpawnForCapsule(capsuleHeight, capsuleRadius, c_powerPoint:GetOrigin(), 2, 40, EntityFilterAll())
+            end
         end       
         
         if spawnOrigin ~= nil then

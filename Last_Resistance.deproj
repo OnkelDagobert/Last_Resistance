@@ -43,6 +43,12 @@
     <filename>lua\ParasiteMixin.lua</filename>
   </file>
   <file>
+    <filename>lua\Player_Client.lua</filename>
+  </file>
+  <file>
+    <filename>lua\PlayingTeam.lua</filename>
+  </file>
+  <file>
     <filename>lua\PointGiverMixin.lua</filename>
   </file>
   <file>

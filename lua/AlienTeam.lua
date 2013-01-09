@@ -473,8 +473,11 @@ function AlienTeam:UpdateTeamAutoHeal(timePassed)
             // players update the auto heal on their own
             if not entity:isa("Player") then
             
-                // we add whips as an exception here. construction should still be restricted to onInfestation, we only don't want whips to take damage off infestation
-                local requiresInfestation   = ConditionalValue(entity:isa("Whip"), false, LookupTechData(entity:GetTechId(), kTechDataRequiresInfestation))
+                // we add whips as an exception here. construction should still be restricted to onInfestation, we only don't want whips to take damage off infestation 
+                
+                //Disabled Infestation Requirement due to random alien egg spawns (ISSUE #2)
+                //local requiresInfestation   = ConditionalValue(entity:isa("Whip"), false, LookupTechData(entity:GetTechId(), kTechDataRequiresInfestation))
+                local requiresInfestation   = false
                 local isOnInfestation       = entity:GetGameEffectMask(kGameEffect.OnInfestation)
                 local isHealable            = entity:GetIsHealable()
                 local deltaTime             = 0

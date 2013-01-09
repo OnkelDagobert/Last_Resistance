@@ -395,10 +395,10 @@ kAlienWaveSpawnInterval = 0
 kAlienMinDeathTime = 0
 
 kAlienEggMinSpawnTime = 3
-kAlienEggMaxSpawnTime = 20
+kAlienEggMaxSpawnTime = 5
 kAlienEggPlayerScalar = 10
 kAlienEggSinScalar = 14
-kAlienEggsPerHive = 12
+kAlienEggsPerHive = 20
 
 // BUILD/RESEARCH TIMES
 kRecycleTime = 12
