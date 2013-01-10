@@ -662,7 +662,7 @@ function Marine:GetChatSound()
 end
 
 function Marine:GetDeathMapName()
-    return AlienSpectator.kMapName
+    return Marine.kMapName
 end
 
 // Returns the name of the primary weapon

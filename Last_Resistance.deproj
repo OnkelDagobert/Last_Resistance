@@ -10,6 +10,9 @@
     <filename>lua\BalanceHealth.lua</filename>
   </file>
   <file>
+    <filename>lua\BalanceMisc.lua</filename>
+  </file>
+  <file>
     <filename>lua\ConstructMixin.lua</filename>
   </file>
   <file>
@@ -28,6 +31,9 @@
     <filename>lua\GUINotifications.lua</filename>
   </file>
   <file>
+    <filename>lua\Hive_Server.lua</filename>
+  </file>
+  <file>
     <filename>lua\Marine.lua</filename>
   </file>
   <file>
@@ -44,6 +50,9 @@
   </file>
   <file>
     <filename>lua\Player_Client.lua</filename>
+  </file>
+  <file>
+    <filename>lua\Player_Server.lua</filename>
   </file>
   <file>
     <filename>lua\PlayingTeam.lua</filename>

@@ -377,14 +377,15 @@ local function UpdateSpawnWave(self)
                 // Consider min death time.
                 if alienSpectator:GetRespawnQueueEntryTime() + kAlienMinDeathTime < Shared.GetTime() then
                 
-                    local egg = nil
+                    //let aliens spawn without eggs (ISSUE #2)
+                    GetGamerules():RespawnPlayer(alienSpectator)
+                    /*local egg = nil
                     if alienSpectator.GetHostEgg then
                         egg = alienSpectator:GetHostEgg()
                     end
                     
                     // Player has no egg assigned, check for free egg.
-                    if egg == nil then
-                    
+                    if egg == nil then                    
                         local success = AssignPlayerToEgg(self, alienSpectator, enemyTeamPosition)
                         
                         // We have no eggs currently, makes no sense to check for every spectator now.
@@ -392,7 +393,7 @@ local function UpdateSpawnWave(self)
                             break
                         end
                         
-                    end
+                    end*/
                     
                 end
                 

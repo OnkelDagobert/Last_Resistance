@@ -398,7 +398,7 @@ kAlienEggMinSpawnTime = 3
 kAlienEggMaxSpawnTime = 5
 kAlienEggPlayerScalar = 10
 kAlienEggSinScalar = 14
-kAlienEggsPerHive = 20
+kAlienEggsPerHive = 0
 
 // BUILD/RESEARCH TIMES
 kRecycleTime = 12
