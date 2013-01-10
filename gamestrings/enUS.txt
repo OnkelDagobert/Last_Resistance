@@ -753,3 +753,6 @@ WHIP_HINT = "Defensive striker"
 WHIP_TOOLTIP = "Attacks nearby enemies and deflects projectiles. Can be upgraded to Bombard enemy structures."
 XENOCIDE = "Xenocide"
 XENOCIDE_TOOLTIP = "Allows Skulks to self-destruct, damaging nearby units."
+
+
+PLAYER_MUTATED = "%s has been mutated!"

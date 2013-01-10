@@ -22,7 +22,8 @@ if Server then
                     end
                 )
             end            
-            
+            //SendGlobalMessage(kTeamMessageTypes.NoCommander)            
+            //SendGlobalMessage(kTeamMessageTypes.PlayerMutated, 1)
         end //end sec.
         
     end

@@ -70,6 +70,9 @@
     <filename>lua\TeamJoin.lua</filename>
   </file>
   <file>
+    <filename>lua\TeamMessenger.lua</filename>
+  </file>
+  <file>
     <filename>lua\lr_Client.lua</filename>
   </file>
   <file>

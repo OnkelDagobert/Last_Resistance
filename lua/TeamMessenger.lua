@@ -11,7 +11,7 @@ kTeamMessageTypes = enum({ 'GameStarted', 'PowerLost', 'PowerRestored', 'Eject',
                            'HiveConstructed', 'HiveLowHealth', 'HiveKilled',
                            'CommandStationUnderAttack', 'IPUnderAttack', 'HiveUnderAttack',
                            'PowerPointUnderAttack', 'Beacon', 'NoCommander', 'TeamsUnbalanced',
-                           'TeamsBalanced' })
+                           'TeamsBalanced', 'PlayerMutated' })
 
 local kTeamMessages = { }
 
@@ -22,6 +22,26 @@ local locationStringGen = function(locationId, messageString) return string.form
 
 // Thos function will generate the string to display based on a research Id.
 local researchStringGen = function(researchId, messageString) return string.format(Locale.ResolveString(messageString), GetDisplayNameForTechId(researchId)) end
+
+local usernameStringGen = function(playerid, messageString)
+    /*local teams = GetGamerules():GetTeams()
+    local player = teams[2]:GetPlayer(playerid)
+    if player == nil then
+        player = teams[3]:GetPlayer(playerid)        
+    end
+    local playername =  player:getName()*/   
+    local allPlayers = ScoreboardUI_GetAllScores()
+    local numPlayers = table.count(allPlayers)
+    local playername = "NO NAME"
+    for i = 1, numPlayers do
+        local clientIndex = allPlayers[i].ClientIndex
+        if clientIndex == playerid then
+            playername = allPlayers[i].Name
+            break
+        end
+    end 
+    return string.format(Locale.ResolveString(messageString),playername)
+end
 
 kTeamMessages[kTeamMessageTypes.PowerLost] = { text = { [kMarineTeamType] = function(data) return locationStringGen(data, "POWER_LOST") end } }
 
@@ -62,6 +82,9 @@ kTeamMessages[kTeamMessageTypes.NoCommander] = { text = { [kMarineTeamType] = "N
 kTeamMessages[kTeamMessageTypes.TeamsUnbalanced] = { text = { [kMarineTeamType] = "TEAMS_UNBALANCED", [kAlienTeamType] = "TEAMS_UNBALANCED" } }
 
 kTeamMessages[kTeamMessageTypes.TeamsBalanced] = { text = { [kMarineTeamType] = "TEAMS_BALANCED", [kAlienTeamType] = "TEAMS_BALANCED" } }
+
+kTeamMessages[kTeamMessageTypes.PlayerMutated] = { text = { [kMarineTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end,
+                                                         [kAlienTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end } }
 
 // Silly name but it fits the convention.
 local kTeamMessageMessage =
