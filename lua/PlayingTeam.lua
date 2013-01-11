@@ -133,7 +133,6 @@ function PlayingTeam:ResetTeam()
 
     local initialTechPoint = self:GetInitialTechPoint()
     
-    self:SpawnInitialStructures(initialTechPoint)
     
     local players = GetEntitiesForTeam("Player", self:GetTeamNumber())
     for p = 1, #players do
@@ -506,20 +505,21 @@ local function SpawnCommandStructure(techPoint, teamNumber)
     
 end
 
+// Issue 9 :
 function PlayingTeam:SpawnInitialStructures(techPoint)
 
-    assert(techPoint ~= nil)
+  //  assert(techPoint ~= nil)
     
     // Spawn tower at nearest unoccupied resource point.
-    local tower = SpawnResourceTower(self, techPoint)
-    if not tower then
-        Print("Warning: Failed to spawn a resource tower for tech point in location: " .. techPoint:GetLocationName())
-    end
+   // local tower = SpawnResourceTower(self, techPoint)
+   // if not tower then
+   //     Print("Warning: Failed to spawn a resource tower for tech point in location: " .. techPoint:GetLocationName())
+ //   end
     
     // Spawn hive/command station at team location.
-    local commandStructure = SpawnCommandStructure(techPoint, self:GetTeamNumber())
+  //  local commandStructure = SpawnCommandStructure(techPoint, self:GetTeamNumber())
     
-    return tower, commandStructure
+  //  return tower, commandStructure
     
 end
 

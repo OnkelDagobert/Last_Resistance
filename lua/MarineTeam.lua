@@ -17,7 +17,8 @@ class 'MarineTeam' (PlayingTeam)
 // How often to send the "No IPs" message to the Marine team in seconds.
 local kSendNoIPsMessageRate = 20
 
-local kCannotSpawnSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/need_ip")
+// Issue 9 :
+//local kCannotSpawnSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/need_ip")
 
 function MarineTeam:ResetTeam()
 
@@ -128,9 +129,9 @@ local function CheckForNoIPs(self)
     
         self.lastTimeNoIPsMessageSent = Shared.GetTime()
         if Shared.GetEntitiesWithClassname("InfantryPortal"):GetSize() == 0 then
-        
-            self:ForEachPlayer(function(player) StartSoundEffectForPlayer(kCannotSpawnSound, player) end)
-            SendTeamMessage(self, kTeamMessageTypes.CannotSpawn)
+ // Issue 9 :      
+  //          self:ForEachPlayer(function(player) StartSoundEffectForPlayer(kCannotSpawnSound, player) end)
+  //         SendTeamMessage(self, kTeamMessageTypes.CannotSpawn)
             
         end
         
@@ -365,7 +366,7 @@ function MarineTeam:SpawnInitialStructures(techPoint)
     
     SpawnInfantryPortal(self, techPoint)
     
-    return tower, commandStation
+    return nil
     
 end
 
