@@ -755,4 +755,8 @@ XENOCIDE = "Xenocide"
 XENOCIDE_TOOLTIP = "Allows Skulks to self-destruct, damaging nearby units."
 
 
-PLAYER_MUTATED = "%s has been mutated!"
+PLAYER_MUTATED = "%s is mutating!"
+TAG_MODE = "           Tag mode!\nFrag your neighbor!!!"
+SURV_START_MARINE = "SURVIVE!!!"
+SURV_START_ALIEN = "KILL ALL HUMANS!!!"
+SURV_JOIN_ERROR = "Game already started! Choose Alien! "

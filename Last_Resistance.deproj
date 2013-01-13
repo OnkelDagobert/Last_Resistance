@@ -16,6 +16,9 @@
     <filename>lua\ConstructMixin.lua</filename>
   </file>
   <file>
+    <filename>lua\DamageMixin.lua</filename>
+  </file>
+  <file>
     <filename>lua\DamageTypes.lua</filename>
   </file>
   <file>
@@ -31,6 +34,9 @@
     <filename>lua\GUINotifications.lua</filename>
   </file>
   <file>
+    <filename>lua\Globals.lua</filename>
+  </file>
+  <file>
     <filename>lua\Hive_Server.lua</filename>
   </file>
   <file>
@@ -44,6 +50,9 @@
   </file>
   <file>
     <filename>lua\NS2Gamerules.lua</filename>
+  </file>
+  <file>
+    <filename>lua\NS2Utility.lua</filename>
   </file>
   <file>
     <filename>lua\ParasiteMixin.lua</filename>

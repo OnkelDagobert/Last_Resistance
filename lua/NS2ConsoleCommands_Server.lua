@@ -12,14 +12,16 @@
 Script.Load("lua/ScenarioHandler_Commands.lua")
 
  local function JoinTeam(player, teamIndex)
-
+ 
     if player ~= nil and player:GetTeamNumber() == kTeamReadyRoom then
-    
+        
         // Auto team balance checks.
         // local allowed = GetGamerules():GetCanJoinTeamNumber(teamIndex)
-  local allowed = true
-                
-        if allowed or Shared.GetCheatsEnabled() then
+        local allowed = true
+        if (teamIndex == kTeam1Index or teamIndex == kRandomTeamType) and (GetGamerules():GetGameStarted() or GetGamerules():GetGameTagMode()) then //ISSUE #3
+            allowed = false
+        end        
+        if allowed then//or Shared.GetCheatsEnabled() then
             return GetGamerules():JoinTeam(player, teamIndex)
         else
             Server.SendNetworkMessage(player, "JoinError", BuildJoinErrorMessage(), false)

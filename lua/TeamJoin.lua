@@ -95,15 +95,17 @@ function JoinRandomTeam(player)
             if self.teamNumber == kTeamReadyRoom then
                 Server.ClientCommand(enterEnt, "spectate")
             elseif self.teamNumber == kTeam1Index then
-                //if team2Players >0 then
+                //if GetGamerules():GetGameStarted() or GetGamerules():GetGameTagMode() then
+                    //playerl = {enterEnt}                    
+                    //SendPlayersMessage(playerl ,kTeamMessageTypes.SurviveStart )
+                //else                
                     Server.ClientCommand(enterEnt, "jointeamone")
-                //else
-                //    Shared.Message('TEAM is full! Join Alien First!')
-                //end
+                //end 
             elseif self.teamNumber == kTeam2Index then
                 Server.ClientCommand(enterEnt, "jointeamtwo")
             elseif self.teamNumber == kRandomTeamType then
-                JoinRandomTeam(enterEnt)
+                Server.ClientCommand(enterEnt, "jointeamtwo")
+                //JoinRandomTeam(enterEnt)
             end
             
         end

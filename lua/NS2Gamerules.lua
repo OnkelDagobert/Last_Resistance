@@ -22,6 +22,7 @@ NS2Gamerules.kMapName = "ns2_gamerules"
 
 local kGameEndCheckInterval = 0.75
 local kPregameLength = 15
+local kTagModeMaxLength = 30
 local kTimeToReadyRoom = 8
 local kPauseToSocializeBeforeMapcycle = 30
 
@@ -87,7 +88,10 @@ if Server then
 
     NS2Gamerules.kMarineStartSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/game_start")
     NS2Gamerules.kAlienStartSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/game_start")
-    NS2Gamerules.kCountdownSound = PrecacheAsset("sound/NS2.fev/common/countdown")
+    NS2Gamerules.kCountdownSound = PrecacheAsset("sound/NS2.fev/common/countdown")    
+    NS2Gamerules.kfirstMutation = PrecacheAsset("sound/NS2.fev/common/menu_confirm")
+    //NS2Gamerules.kTagModeSound = PrecacheAsset("sound/lr.fev/gameplay/SURVIVOR_TAG")
+    //NS2Gamerules.kTagModeSound = PrecacheAsset("sound/tagmode_sound.fev/untitled/SURVIVOR_TAG")
 
     // Allow players to spawn in for free (not using IP or eggs) for this many seconds after the game starts
     local kFreeSpawnTime = 60
@@ -105,6 +109,12 @@ if Server then
     function NS2Gamerules:SetGameState(state)
     
         if state ~= self.gameState then
+            kFriendlyFire = state == kGameState.TagMode
+            if kFriendlyFire then
+            Print("ff on")
+            else 
+            Print("ff off")
+            end
         
             self.gameState = state
             self.gameInfo:SetState(state)
@@ -114,6 +124,23 @@ if Server then
             local frozenState = (state == kGameState.Countdown) and (not Shared.GetDevMode())
             self.team1:SetFrozenState(frozenState)
             self.team2:SetFrozenState(frozenState)
+            
+            //ISSUE #3
+            if self.gameState == kGameState.TagMode then
+            
+                PostGameViz("TagMode started")
+                self.gameStartTime = Shared.GetTime()
+                
+                self.gameInfo:SetStartTime(self.gameStartTime)
+                
+                SendTeamMessage(self.team1, kTeamMessageTypes.TagMode)
+                SendTeamMessage(self.team2, kTeamMessageTypes.TagMode)
+                
+                // Reset disconnected player resources when a game starts to prevent shenanigans.
+                self.disconnectedPlayerResources = { }
+                
+            end
+            
             
             if self.gameState == kGameState.Started then
             
@@ -126,7 +153,7 @@ if Server then
                 SendTeamMessage(self.team2, kTeamMessageTypes.GameStarted)
                 
                 // Reset disconnected player resources when a game starts to prevent shenanigans.
-                self.disconnectedPlayerResources = { }
+                //self.disconnectedPlayerResources = { }
                 
             end
             
@@ -208,8 +235,8 @@ if Server then
 
     end
     
-    function NS2Gamerules:GetFriendlyFire()
-        return false
+    function NS2Gamerules:GetFriendlyFire()        
+        return self:GetGameState() == kGameState.TagMode //ISSUE #3 
     end
     
     // All damage is routed through here.
@@ -770,6 +797,32 @@ if Server then
         
     end
 
+    function NS2Gamerules:UpdateToMarines()
+
+        local state = self:GetGameState()
+        if(state == kGameState.Team1Won or state == kGameState.Team2Won or state == kGameState.Draw) then                        
+            if self.timeSinceGameStateChanged >= kTimeToReadyRoom then
+            
+                // Force the commanders to logout before we spawn people
+                // in the ready room
+                self:LogoutCommanders()
+        
+                // Set all players to ready room team
+                local function SetMarineTeam(player)
+                    player:SetCameraDistance(0)
+                    self:JoinTeam(player, kTeam1Index)                    
+                end
+                Server.ForAllPlayers(SetMarineTeam)
+
+                // Spawn them there and reset teams
+                self:ResetGame()
+
+            end
+            
+        end
+        
+    end
+
     function NS2Gamerules:UpdateToReadyRoom()
 
         local state = self:GetGameState()
@@ -926,7 +979,8 @@ if Server then
                 self:CheckGameEnd()
                 
                 self:UpdatePregame(timePassed)
-                self:UpdateToReadyRoom()
+                //self:UpdateToReadyRoom() // ISSUE #3
+                self:UpdateToMarines()
                 self:UpdateMapCycle()
                 UpdateAutoTeamBalance(self, timePassed)
                 
@@ -1236,7 +1290,7 @@ if Server then
             local team1Players = self.team1:GetNumPlayers()
             local team2Players = self.team2:GetNumPlayers()
             
-            if (team1Players > 0 and team2Players > 0) or (Shared.GetCheatsEnabled() and (team1Players > 0 or team2Players > 0)) then
+            if (team1Players > 1 or (team1Players > 1 and team2Players > 0)) or (Shared.GetCheatsEnabled() and (team1Players > 0 or team2Players > 0)) then
             
                 if self:GetGameState() == kGameState.NotStarted then
                     self:SetGameState(kGameState.PreGame)
@@ -1353,15 +1407,30 @@ if Server then
                 
             end
             
-            if self.countdownTime <= 0 then
-            
+            if self.countdownTime <= 0 then   
+                
+                self:SetGameState(kGameState.TagMode)
                 self.team1:PlayPrivateTeamSound(ConditionalValue(self.team1:GetTeamType() == kAlienTeamType, NS2Gamerules.kAlienStartSound, NS2Gamerules.kMarineStartSound))
-                self.team2:PlayPrivateTeamSound(ConditionalValue(self.team2:GetTeamType() == kAlienTeamType, NS2Gamerules.kAlienStartSound, NS2Gamerules.kMarineStartSound))
-                
-                self:SetGameState(kGameState.Started)
-                
+                self.team2:PlayPrivateTeamSound(ConditionalValue(self.team2:GetTeamType() == kAlienTeamType, NS2Gamerules.kAlienStartSound, NS2Gamerules.kMarineStartSound))                
             end
-            
+        elseif self:GetGameState() == kGameState.TagMode then //ISSUE #3 
+            local start = false;
+            if self.timeSinceGameStateChanged > kTagModeMaxLength then
+                local players = self.team1:GetPlayers()
+                players[math.random( #players )]:Kill()
+                start = true                
+            elseif self:GetTeam(kTeam2Index):GetNumPlayers() > 0 then
+                start = true                
+            end
+           if start then
+                self:SetGameState(kGameState.Started) 
+                self.team1:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)
+                self.team2:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)   
+                SendGlobalMessage( kTeamMessageTypes.SurviveStart)                            
+           else
+                             
+           end
+           
         end
         
     end
@@ -1488,6 +1557,10 @@ end
 
 function NS2Gamerules:GetGameStarted()
     return self.gameState == kGameState.Started
+end
+
+function NS2Gamerules:GetGameTagMode() //ISSUE #3
+    return self.gameState == kGameState.TagMode
 end
 
 Shared.LinkClassToMap("NS2Gamerules", NS2Gamerules.kMapName, { })

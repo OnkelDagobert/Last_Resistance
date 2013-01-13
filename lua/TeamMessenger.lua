@@ -11,7 +11,7 @@ kTeamMessageTypes = enum({ 'GameStarted', 'PowerLost', 'PowerRestored', 'Eject',
                            'HiveConstructed', 'HiveLowHealth', 'HiveKilled',
                            'CommandStationUnderAttack', 'IPUnderAttack', 'HiveUnderAttack',
                            'PowerPointUnderAttack', 'Beacon', 'NoCommander', 'TeamsUnbalanced',
-                           'TeamsBalanced', 'PlayerMutated' })
+                           'TeamsBalanced', 'PlayerMutated', 'TagMode', 'SurviveStart' })
 
 local kTeamMessages = { }
 
@@ -86,6 +86,9 @@ kTeamMessages[kTeamMessageTypes.TeamsBalanced] = { text = { [kMarineTeamType] = 
 
 kTeamMessages[kTeamMessageTypes.PlayerMutated] = { text = { [kMarineTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end,
                                                          [kAlienTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end } }
+                                                         
+kTeamMessages[kTeamMessageTypes.TagMode] = { text = { [kMarineTeamType] = "TAG_MODE", [kAlienTeamType] = "TAG_MODE" } }
+kTeamMessages[kTeamMessageTypes.SurviveStart] = { text = { [kMarineTeamType] = "SURV_START_MARINE", [kAlienTeamType] = "SURV_START_ALIEN" } }                                                     
 
 // Silly name but it fits the convention.
 local kTeamMessageMessage =
@@ -103,7 +106,7 @@ if Server then
      */
     function SendGlobalMessage(messageType, optionalData)
     
-        if GetGamerules():GetGameStarted() then
+        if GetGamerules():GetGameStarted() or GetGamerules():GetGameTagMode() then
         
             local teams = GetGamerules():GetTeams()
             for t = 1, #teams do
@@ -119,7 +122,7 @@ if Server then
      */
     function SendTeamMessage(team, messageType, optionalData)
     
-        if GetGamerules():GetGameStarted() then
+        if GetGamerules():GetGameStarted() or GetGamerules():GetGameTagMode() then
         
             local function SendToPlayer(player)
                 Server.SendNetworkMessage(player, "TeamMessage", { type = messageType, data = optionalData or 0 }, true)
@@ -136,7 +139,7 @@ if Server then
      */
     function SendPlayersMessage(playerList, messageType, optionalData)
     
-        if GetGamerules():GetGameStarted() then
+        if GetGamerules():GetGameStarted() or GetGamerules():GetGameTagMode() then
         
             for p = 1, #playerList do
                 Server.SendNetworkMessage(playerList[p], "TeamMessage", { type = messageType, data = optionalData or 0 }, true)

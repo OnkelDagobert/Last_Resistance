@@ -131,7 +131,7 @@ kCorrodeDamagePlayerArmorScalar = 0.1
 kCorrodeDamageExoArmorScalar = 0.2
 
 // deal only 60% of damage to friendlies
-kFriendlyFireScalar = 0
+kFriendlyFireScalar = 1
 
 local function ApplyDefaultArmorUseFraction(target, attacker, doer, damage, armorFractionUsed, healthPerArmor, damageType)
     return damage, kBaseArmorUseFraction, healthPerArmor
@@ -447,24 +447,21 @@ function GetDamageByType(target, attacker, doer, damage, damageType)
     if not CanEntityDoDamageTo(attacker, target, Shared.GetCheatsEnabled(), Shared.GetDevMode(), GetFriendlyFire(), damageType) then
         return 0, 0, 0
     end
-    
     local armorUsed = 0
     local healthUsed = 0
     
-    local armorFractionUsed, healthPerArmor = 0
+    local armorFractionUsed, healthPerArmor = 0    
     
     // apply global rules at first
     for _, rule in ipairs(kDamageTypeGlobalRules) do
-        damage, armorFractionUsed, healthPerArmor = rule(target, attacker, doer, damage, armorFractionUsed, healthPerArmor, damageType)
+        damage, armorFractionUsed, healthPerArmor = rule(target, attacker, doer, damage, armorFractionUsed, healthPerArmor, damageType)        
     end
     
     // apply damage type specific rules
     for _, rule in ipairs(kDamageTypeRules[damageType]) do
-        damage, armorFractionUsed, healthPerArmor = rule(target, attacker, doer, damage, armorFractionUsed, healthPerArmor, damageType)
-    end
-    
+        damage, armorFractionUsed, healthPerArmor = rule(target, attacker, doer, damage, armorFractionUsed, healthPerArmor, damageType)        
+    end        
     if damage > 0 and healthPerArmor > 0 then
-
         // Each point of armor blocks a point of health but is only destroyed at half that rate (like NS1)
         // Thanks Harimau!
         local healthPointsBlocked = math.min(healthPerArmor * target.armor, armorFractionUsed * damage)
