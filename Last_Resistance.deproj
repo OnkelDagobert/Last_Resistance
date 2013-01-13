@@ -55,6 +55,9 @@
     <filename>lua\NS2Utility.lua</filename>
   </file>
   <file>
+    <filename>lua\NetworkMessages_Client.lua</filename>
+  </file>
+  <file>
     <filename>lua\ParasiteMixin.lua</filename>
   </file>
   <file>
@@ -71,6 +74,9 @@
   </file>
   <file>
     <filename>lua\PowerPoint.lua</filename>
+  </file>
+  <file>
+    <filename>lua\Scoreboard.lua</filename>
   </file>
   <file>
     <filename>lua\Skulk.lua</filename>
