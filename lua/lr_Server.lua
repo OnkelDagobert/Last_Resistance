@@ -1,6 +1,6 @@
 if Server then
     kFriendlyFire = false
-
+    kRoundTimeLimit = 300 //5min
     Script.Load("lua/Server.lua")
     //Script.Load("lua/lr_Teamjoin.lua")
     kHumanPointsPerSec = 1

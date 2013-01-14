@@ -79,6 +79,9 @@
     <filename>lua\Scoreboard.lua</filename>
   </file>
   <file>
+    <filename>lua\ScoringMixin.lua</filename>
+  </file>
+  <file>
     <filename>lua\Skulk.lua</filename>
   </file>
   <file>

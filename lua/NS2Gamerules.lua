@@ -23,7 +23,7 @@ NS2Gamerules.kMapName = "ns2_gamerules"
 local kGameEndCheckInterval = 0.75
 local kPregameLength = 15
 local kTagModeMaxLength = 30
-local kTimeToReadyRoom = 8
+local kTimeToReadyRoom = 15
 local kPauseToSocializeBeforeMapcycle = 30
 
 // How often to send the "No commander" message to players in seconds.
@@ -504,7 +504,7 @@ if Server then
                 local resetEntity = entity:GetIsMapEntity() or (entity:isa("Player") and entity:GetClient() ~= nil)
                 if resetEntity then
                 
-                    if entity.Reset then
+                    if entity.Reset then                       
                         entity:Reset()
                     end
                     
@@ -565,11 +565,13 @@ if Server then
         // Reset banned players for new game
         self.bannedPlayers = {}
         
-        // Send scoreboard update, ignoring other scoreboard updates (clearscores resets everything)
+        //Issue #3
+        /* // Send scoreboard update, ignoring other scoreboard updates (clearscores resets everything)
         for index, player in ientitylist(Shared.GetEntitiesWithClassname("Player")) do
             Server.SendCommand(player, "onresetgame")
             //player:SetScoreboardChanged(false)
         end
+        */
         
         self.team1:OnResetComplete()
         self.team2:OnResetComplete()
@@ -797,7 +799,7 @@ if Server then
         
     end
 
-    function NS2Gamerules:UpdateToMarines()
+    function NS2Gamerules:UpdateToMarines() //ISSUE #3
 
         local state = self:GetGameState()
         if(state == kGameState.Team1Won or state == kGameState.Team2Won or state == kGameState.Draw) then                        
@@ -809,11 +811,14 @@ if Server then
         
                 // Set all players to ready room team
                 local function SetMarineTeam(player)
-                    player:SetCameraDistance(0)
-                    self:JoinTeam(player, kTeam1Index)                    
+                    if player:GetTeamNumber() ~= kTeamReadyRoom and player:GetTeamNumber() ~= kSpectatorIndex then 
+                        player:SetCameraDistance(0)
+                        self:JoinTeam(player, kTeam1Index)                    
+                    end
                 end
+                //self.team1:ForEachPlayer(SetMarineTeam)
+                //self.team2:ForEachPlayer(SetMarineTeam)
                 Server.ForAllPlayers(SetMarineTeam)
-
                 // Spawn them there and reset teams
                 self:ResetGame()
 
@@ -1290,7 +1295,7 @@ if Server then
             local team1Players = self.team1:GetNumPlayers()
             local team2Players = self.team2:GetNumPlayers()
             
-            if (team1Players > 1 or (team1Players > 1 and team2Players > 0)) or (Shared.GetCheatsEnabled() and (team1Players > 0 or team2Players > 0)) then
+            if (team1Players > 1 or (team1Players > 0 and team2Players > 0)) then //or (Shared.GetCheatsEnabled() and (team1Players > 0 or team2Players > 0)) then
             
                 if self:GetGameState() == kGameState.NotStarted then
                     self:SetGameState(kGameState.PreGame)
@@ -1305,33 +1310,36 @@ if Server then
     end
     
     function NS2Gamerules:CheckGameEnd()
-    
-        if self:GetGameStarted() and self.timeGameEnded == nil and not Shared.GetCheatsEnabled() and not self.preventGameEnd then
+        //ISSUE #11
+        if self:GetGameStarted() and self.timeGameEnded == nil and not self.preventGameEnd then
         
             if self.timeLastGameEndCheck == nil or (Shared.GetTime() > self.timeLastGameEndCheck + kGameEndCheckInterval) then
             
-                local team1Lost = self.team1:GetHasTeamLost()
-                local team2Lost = self.team2:GetHasTeamLost()
-                local team1Won = self.team1:GetHasTeamWon()
-                local team2Won = self.team2:GetHasTeamWon()
+                local team1Lost = false// = self.team1:GetHasTeamLost()
+                local team2Lost = false// = self.team2:GetHasTeamLost()
+                local team1Won  = false// = self.team1:GetHasTeamWon()
+                local team2Won  = false// = self.team2:GetHasTeamWon()
                 
                 local team1Players = self.team1:GetNumPlayers()
                 local team2Players = self.team2:GetNumPlayers()
                 local totalCount = team1Players + team2Players
-                
-                // This is an optional end condition based on the teams being unbalanced.
-                local endGameOnUnbalancedAmount = Server.GetConfigSetting("end_round_on_team_unbalance")
-                // Don't consider unbalanced game end until enough people are playing.
-                if totalCount > 6 and endGameOnUnbalancedAmount and endGameOnUnbalancedAmount ~= 0 then
-                
-                    if (1 - (team1Players / team2Players)) >= endGameOnUnbalancedAmount then
-                        team1Lost = true
-                    elseif (1 - (team2Players / team1Players)) >= endGameOnUnbalancedAmount then
-                        team2Lost = true
-                    end
-                    
+                      
+
+                //no marines -> end game
+                if team1Players == 0 then                    
+                    team2Won = true
                 end
                 
+                //no alien -> end game
+                if team2Players == 0 and self.timeSinceGameStateChanged > 10 then
+                    team1Won = true
+                end
+                
+                //time is up
+                if self.timeSinceGameStateChanged >= kRoundTimeLimit then
+                    team1Won = true
+                end
+                                   
                 if (team1Lost and team2Lost) or (team1Won and team2Won) then
                     self:DrawGame()
                 elseif team1Lost or team2Won then
@@ -1384,9 +1392,9 @@ if Server then
             if self.timeSinceGameStateChanged > preGameTime then
             
                 StartCountdown(self)
-                if Shared.GetCheatsEnabled() then
-                    self.countdownTime = 1
-                end
+                //if Shared.GetCheatsEnabled() then
+                    //self.countdownTime = 1
+                //end
                 
             end
             
