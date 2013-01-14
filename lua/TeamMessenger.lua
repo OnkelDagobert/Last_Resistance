@@ -80,9 +80,10 @@ kTeamMessages[kTeamMessageTypes.Beacon] = { text = { [kMarineTeamType] = functio
 
 kTeamMessages[kTeamMessageTypes.NoCommander] = { text = { [kMarineTeamType] = "NO_COMM", [kAlienTeamType] = "NO_COMM" } }
 
-kTeamMessages[kTeamMessageTypes.TeamsUnbalanced] = { text = { [kMarineTeamType] = "TEAMS_UNBALANCED", [kAlienTeamType] = "TEAMS_UNBALANCED" } }
+//Issue 10:
+//kTeamMessages[kTeamMessageTypes.TeamsUnbalanced] = { text = { [kMarineTeamType] = "TEAMS_UNBALANCED", [kAlienTeamType] = "TEAMS_UNBALANCED" } }
 
-kTeamMessages[kTeamMessageTypes.TeamsBalanced] = { text = { [kMarineTeamType] = "TEAMS_BALANCED", [kAlienTeamType] = "TEAMS_BALANCED" } }
+//kTeamMessages[kTeamMessageTypes.TeamsBalanced] = { text = { [kMarineTeamType] = "TEAMS_BALANCED", [kAlienTeamType] = "TEAMS_BALANCED" } }
 
 kTeamMessages[kTeamMessageTypes.PlayerMutated] = { text = { [kMarineTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end,
                                                          [kAlienTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end } }
