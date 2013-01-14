@@ -319,6 +319,13 @@ local function UpdateChangeToSpectator(self)
                 //Let Marine spawn without IP and Aliens without eggs (ISSUE #2)
                     //spectator:GetTeam():PutPlayerInRespawnQueue(spectator)
                 spectator:GetTeam():ReplaceRespawnPlayer(spectator)   
+                             
+
+                //Give Tech/Upgrades to respawning PLAYER (not the team)
+                //Give Tech To Alien ISSUE #16                
+                if spectator:GetTeamNumber() == kTeam2Index then                    
+                    //spectator:GetTechTree():GiveUpgrade(kTechId.Leap) //give Leap
+                end   
             end
             
         end

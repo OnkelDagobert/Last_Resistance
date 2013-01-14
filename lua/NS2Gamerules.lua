@@ -155,6 +155,25 @@ if Server then
                 // Reset disconnected player resources when a game starts to prevent shenanigans.
                 //self.disconnectedPlayerResources = { }
                 
+                
+                
+                //Issue #16
+                //Give Tech to team on roundstart
+                
+                //Alien Team // see AlienTeam.lua for more ResearchNodes
+                local alientechtree = GetTechTree(kTeam2Index)
+                alientechtree:GetTechNode(kTechId.Leap):SetResearched(true)             //Give Leap to AlienTeam
+                //alientechtree:GetTechNode(kTechId.Xenocide):SetResearched(true)       //Give Xenocide to AlienTeam               
+                alientechtree:SetTechChanged()
+                
+                //Marine Team // see MarineTeam.lua for more ResearchNodes
+                local marinetechtree = GetTechTree(kTeam1Index)
+                //marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)        //Give Armor Tier3 to MarineTeam
+                //marinetechtree:GetTechNode(kTechId.Weapons2):SetResearched(true)      //Give Weapons Tier2 to MarineTeam
+                //marinetechtree:GetTechNode(kTechId.JetpackTech):SetResearched(true)   //Allow Marines to buy Jetpacks                
+                //marinetechtree:SetTechChanged()
+
+                
             end
             
             // On end game, check for map switch conditions
