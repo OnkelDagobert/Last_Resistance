@@ -61,6 +61,9 @@
     <filename>lua\ParasiteMixin.lua</filename>
   </file>
   <file>
+    <filename>lua\PickupableMixin.lua</filename>
+  </file>
+  <file>
     <filename>lua\Player_Client.lua</filename>
   </file>
   <file>
@@ -76,6 +79,9 @@
     <filename>lua\PowerPoint.lua</filename>
   </file>
   <file>
+    <filename>lua\ResourcePoint.lua</filename>
+  </file>
+  <file>
     <filename>lua\Scoreboard.lua</filename>
   </file>
   <file>
@@ -89,6 +95,9 @@
   </file>
   <file>
     <filename>lua\TeamMessenger.lua</filename>
+  </file>
+  <file>
+    <filename>lua\TechPoint_Server.lua</filename>
   </file>
   <file>
     <filename>lua\lr_Client.lua</filename>
