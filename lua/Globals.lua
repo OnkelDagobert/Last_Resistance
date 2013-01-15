@@ -119,11 +119,16 @@ kPlayerCommunicationStatus = enum( {'None', 'Voice', 'Typing', 'Menu'} )
 
 kMaxAlienAbilities = 3
 
+//ISSUE 18:
 kNoWeaponSlot = 0
 // Weapon slots (marine only). Alien weapons use just regular numbers.
 kPrimaryWeaponSlot = 1
 kSecondaryWeaponSlot = 2
 kTertiaryWeaponSlot = 3
+kQuaternaryWeaponslot = 4
+kQuinaryWeaponSlot = 5
+kSenaryWeaponSlot = 6
+
 
 // How long to display weapon picker after selecting weapons
 kDisplayWeaponTime = 1.5
