@@ -55,6 +55,7 @@ AddMixinNetworkVars(CameraHolderMixin, networkVars)
 AddMixinNetworkVars(DissolveMixin, networkVars)
 
 // Balance, movement, animation
+	
 Skulk.kJumpRepeatTime = 0.2
 Skulk.kViewOffsetHeight = .55
 Skulk.kHealth = kSkulkHealth
@@ -64,9 +65,9 @@ Skulk.kLeapVerticalForce = 9
 Skulk.kMinLeapVelocity = 20
 Skulk.kLeapTime = 0.4
 Skulk.kLeapForce = 9
-Skulk.kMaxSpeed = 2.0
+Skulk.kMaxSpeed = 2
 
-Skulk.kMaxWalkSpeed = Skulk.kMaxSpeed / 2
+Skulk.kMaxWalkSpeed = 1
 Skulk.kWallJumpInterval = 0.3
 
 Skulk.kAcceleration = 120
@@ -74,6 +75,7 @@ Skulk.kGroundFriction = 20
 Skulk.kGroundWalkFriction = 33
 
 Skulk.kMass = 45 // ~100 pounds
+
 Skulk.kWallWalkCheckInterval = .1
 // This is how quickly the 3rd person model will adjust to the new normal.
 Skulk.kWallWalkNormalSmoothRate = 4

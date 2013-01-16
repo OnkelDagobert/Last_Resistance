@@ -49,7 +49,7 @@ if Server then
     function ResourcePoint:dropSupplyPacks()  
         self.ammo_pos =  self:GetOrigin()+ Vector(0.3,0.5,0)
         self.med_pos =   self:GetOrigin()+ Vector(-0.3,0.5,0)       
-        if self.ammopack_id == 0 or (Shared.GetEntity( self.ammopack_id ) == nil and Shared.GetTime() - self.ammopack_lt >= kSupplyRespawnTime )then 
+        if self.ammopack_id == 0 or (Shared.GetEntity( self.ammopack_id ) == nil and Shared.GetTime() - self.ammopack_lt >= kLRconfig.kSupplyRespawnTime )then 
             local ammopack = CreateEntity("ammopack", self.ammo_pos, kTeam1Index)                       
             self.ammopack_id = ammopack:GetId()           
             ammopack.physicsModel:SetGravityEnabled(false) 
@@ -57,7 +57,7 @@ if Server then
             ammopack.GetIsPermanent = true            
             self.ammopack_lt = 0
         end 
-        if self.medpack_id == 0 or (Shared.GetEntity( self.medpack_id ) == nil and Shared.GetTime() - self.medpack_lt >= kSupplyRespawnTime) then            
+        if self.medpack_id == 0 or (Shared.GetEntity( self.medpack_id ) == nil and Shared.GetTime() - self.medpack_lt >= kLRconfig.kSupplyRespawnTime) then            
             local medpack = CreateEntity("medpack", self.med_pos, kTeam1Index) 
             self.medpack_id = medpack:GetId()               
             medpack.physicsModel:SetGravityEnabled(false) 

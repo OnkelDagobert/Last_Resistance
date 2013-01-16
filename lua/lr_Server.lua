@@ -1,30 +1,22 @@
 if Server then
-    kFriendlyFire = false
-    kRoundTimeLimit = 300 //5min
+    kFriendlyFire = false //Dont edit
     
-    
-    //ISSUE #17
-    kSupplyEnable           = true  //Enable Ammo/Health Spawn at TechPoints
-    kSupplyRespawnTime      = 30
-    
-    kWeaponDropEnable       = true  //Enable Weapon Spawn at TechPoints
-    kWeaponDropRespawnTime  = 60    //Time weapon spawn is blocked after someone took the old weapon
-    kWeaponDropRefreshTime  = 30    //Time after old weapon is replaced with a random new weapon 
-    kWeaponDrop_probability = {} 
-    kWeaponDrop_probability.flamethrower    = 0.2
-    kWeaponDrop_probability.grenadelauncher = 0.2
-    kWeaponDrop_probability.shotgun         = 0.5
-    kWeaponDrop_probability.minigun         = 0.0  //minigun doesn't work
-    //ADD new WEAPON like: kWeaponDrop_probability.kMapName = probability
-    //Shotgun.lua L.16: Shotgun.kMapName = "shotgun"   => kWeaponDrop_probability.shotgun
+    //Load Config
+    kLRconfig = {}     
+    Script.Load("lua/lr_Config.lua")
+    makeDefaultConfig()
+    LoadLRConfig()
     
     Script.Load("lua/Server.lua")
+    setConsts()
     //Script.Load("lua/lr_Teamjoin.lua")
-    kHumanPointsPerSec = 1
+    
 
 
-    local totalserverupdatetime = 0.0  
- 
+
+
+
+    local totalserverupdatetime = 0.0   
     local function h_UpdateServer(deltaTime)
         totalserverupdatetime = totalserverupdatetime + deltaTime        
         if((totalserverupdatetime % 1) < deltaTime) then//1 sec passed in this delta   
@@ -37,7 +29,7 @@ if Server then
                 table.foreach(playerlist,
                     function(_index)
                         if(playerlist[_index]:GetIsAlive()) then 
-                            playerlist[_index]:AddScore(kHumanPointsPerSec,0)                             
+                            playerlist[_index]:AddScore(kLRconfig.kHumanPointsPerSec,0)                             
                         end
                     end
                 )
@@ -57,7 +49,7 @@ if Server then
             end        
             
             //ISSUE #17
-            if kSupplyEnable then
+            if kLRconfig.kSupplyEnable then
                 local ResourcePoints = GetEntitiesMatchAnyTypes({"ResourcePoint"})            
                 table.foreach(ResourcePoints,
                         function(_index)                        
@@ -69,7 +61,7 @@ if Server then
         end //end 2 sec.
         
         //ISSUE #17
-        if kSupplyEnable and GetGamerules() ~= nil  then
+        if kLRconfig.kSupplyEnable and GetGamerules() ~= nil  then
             local ResourcePoints = GetEntitiesMatchAnyTypes({"ResourcePoint"})            
                 table.foreach(ResourcePoints,
                     function(_index)                                                    

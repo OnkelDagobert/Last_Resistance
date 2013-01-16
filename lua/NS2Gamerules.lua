@@ -21,10 +21,11 @@ class 'NS2Gamerules' (Gamerules)
 NS2Gamerules.kMapName = "ns2_gamerules"
 
 local kGameEndCheckInterval = 0.75
-local kPregameLength = 15
-local kTagModeMaxLength = 30
-local kTimeToReadyRoom = 15
+kPregameLength      = 15
+kTagModeMaxLength   = 30
+kTimeToReadyRoom    = 15
 local kPauseToSocializeBeforeMapcycle = 30
+
 
 // How often to send the "No commander" message to players in seconds.
 local kSendNoCommanderMessageRate = 50
@@ -162,16 +163,34 @@ if Server then
                 
                 //Alien Team // see AlienTeam.lua for more ResearchNodes
                 local alientechtree = GetTechTree(kTeam2Index)
-                alientechtree:GetTechNode(kTechId.Leap):SetResearched(true)             //Give Leap to AlienTeam
-                //alientechtree:GetTechNode(kTechId.Xenocide):SetResearched(true)       //Give Xenocide to AlienTeam               
+                if kLRconfig.Aliens.TechResearched.Leap then
+                    alientechtree:GetTechNode(kTechId.Leap):SetResearched(true)           //Give Leap to AlienTeam
+                end
+                if kLRconfig.Aliens.TechResearched.Xenocide then
+                    alientechtree:GetTechNode(kTechId.Xenocide):SetResearched(true)       //Give Xenocide to AlienTeam
+                end               
                 alientechtree:SetTechChanged()
                 
                 //Marine Team // see MarineTeam.lua for more ResearchNodes
                 local marinetechtree = GetTechTree(kTeam1Index)
-                //marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)        //Give Armor Tier3 to MarineTeam
-                //marinetechtree:GetTechNode(kTechId.Weapons2):SetResearched(true)      //Give Weapons Tier2 to MarineTeam
+                if      kLRconfig.Marines.TechResearched.ArmorLvL == 1 then
+                    marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)        //Give Armor Tier1 to MarineTeam
+                elseif  kLRconfig.Marines.TechResearched.ArmorLvL == 2 then
+                    marinetechtree:GetTechNode(kTechId.Armor2):SetResearched(true)        //Give Armor Tier2 to MarineTeam
+                elseif  kLRconfig.Marines.TechResearched.ArmorLvL == 3 then
+                    marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)        //Give Armor Tier3 to MarineTeam
+                end
+                
+                
+                if      kLRconfig.Marines.TechResearched.WeaponsLVL == 1 then
+                    marinetechtree:GetTechNode(kTechId.Weapons1):SetResearched(true)        //Give Weapons Tier1 to MarineTeam
+                elseif  kLRconfig.Marines.TechResearched.WeaponsLVL == 2 then
+                    marinetechtree:GetTechNode(kTechId.Weapons2):SetResearched(true)        //Give Weapons Tier2 to MarineTeam
+                elseif  kLRconfig.Marines.TechResearched.WeaponsLVL == 3 then
+                    marinetechtree:GetTechNode(kTechId.Weapons3):SetResearched(true)        //Give Weapons Tier3 to MarineTeam
+                end                
                 //marinetechtree:GetTechNode(kTechId.JetpackTech):SetResearched(true)   //Allow Marines to buy Jetpacks                
-                //marinetechtree:SetTechChanged()
+                marinetechtree:SetTechChanged()
 
                 
             end

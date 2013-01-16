@@ -49,6 +49,12 @@ ClipWeapon.kCone10Degrees = Math.Radians(10)
 ClipWeapon.kCone15Degrees = Math.Radians(15)
 ClipWeapon.kCone20Degrees = Math.Radians(20)
 
+if Server then
+    kNumStartClips = kLRconfig.Marines.Weapons.NumStartClips
+else 
+    kNumStartClips = 1
+end
+
 function ClipWeapon:OnCreate()
 
     Weapon.OnCreate(self)
@@ -103,9 +109,11 @@ function ClipWeapon:GetBulletsPerShot()
     return 1
 end
 
+
 function ClipWeapon:GetNumStartClips()
-    return 5
+    return kNumStartClips
 end
+
 
 function ClipWeapon:GetClipSize()
     return 10

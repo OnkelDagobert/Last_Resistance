@@ -48,12 +48,12 @@ end
 //ISSUE #17 weaponaddon
 function GetWeaponbyProp()
     local total_prop = 0.0
-    for k,v in pairs(kWeaponDrop_probability) do 
+    for k,v in pairs(kLRconfig.kWeaponDrop_probability) do 
         total_prop = total_prop + v
     end
     local rand = math.random( total_prop*100 ) / 100.0
     local c_prop = 0.0    
-    for k,v in pairs(kWeaponDrop_probability) do 
+    for k,v in pairs(kLRconfig.kWeaponDrop_probability) do 
         c_prop = c_prop + v
         if rand < c_prop then
             return k
@@ -88,7 +88,7 @@ function TechPoint:DropWeapon(deltaTime)
     
     //refresh weapon  and destroy old one if worldState
     self.trf_time = self.trf_time + self.ttime
-    if self.trf_time >= kWeaponDropRefreshTime then
+    if self.trf_time >= kLRconfig.kWeaponDropRefreshTime then
         if self.trs_time == -1 then
             if old_weapon ~= nil and old_weapon:GetWeaponWorldState() then
                 DestroyEntity(old_weapon)            
@@ -99,7 +99,7 @@ function TechPoint:DropWeapon(deltaTime)
     end   
      
     
-    if self.weapon_id == 0 or old_weapon == nil or self.trs_time > kWeaponDropRespawnTime  then 
+    if self.weapon_id == 0 or old_weapon == nil or self.trs_time > kLRconfig.kWeaponDropRespawnTime  then 
         local weapon_pos = self:GetOrigin() + Vector(0,1,0)
         local weaponname = GetWeaponbyProp()
         local weapon = CreateEntity(weaponname, weapon_pos , kTeam1Index)
@@ -123,7 +123,7 @@ function TechPoint:OnUpdate(deltaTime)
         end
     end    
     
-    if kWeaponDropEnable then
+    if kLRconfig.kWeaponDropEnable then
         self:DropWeapon(deltaTime)
     end
     
