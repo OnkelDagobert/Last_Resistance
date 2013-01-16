@@ -635,10 +635,10 @@ function AlienTeam:InitTechTree()
     self.techTree:AddTechInheritance(kTechId.Veil, kTechId.FeintVeil)
 
     // Crag
-    self.techTree:AddUpgradeNode(kTechId.EvolveBabblers,          kTechId.None,          kTechId.None)
+    //self.techTree:AddUpgradeNode(kTechId.EvolveBabblers,          kTechId.None,          kTechId.None) //crash on last update
     self.techTree:AddPassive(kTechId.CragHeal)
     self.techTree:AddActivation(kTechId.HealWave,                kTechId.None,          kTechId.None)
-    self.techTree:AddActivation(kTechId.CragBabblers,             kTechId.None,          kTechId.None)
+    //self.techTree:AddActivation(kTechId.CragBabblers,             kTechId.None,          kTechId.None) //crash on last update
 
     // Shift    
     self.techTree:AddUpgradeNode(kTechId.EvolveEcho,              kTechId.None,         kTechId.None)
