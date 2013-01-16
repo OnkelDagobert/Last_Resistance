@@ -59,6 +59,7 @@ function GetWeaponbyProp()
             return k
         end
     end
+    return "rifle"
 end
 
 
