@@ -1645,10 +1645,10 @@
     <filename>lua\Weapons\Alien\SwipeBlink.lua</filename>
   </file>
   <file>
-    <filename>lua\Table.lua</filename>
+    <filename>lua\menu\Table.lua</filename>
   </file>
   <file>
-    <filename>lua\menu\Table.lua</filename>
+    <filename>lua\Table.lua</filename>
   </file>
   <file>
     <filename>lua\menu\TableEntry.lua</filename>
@@ -1856,6 +1856,9 @@
   </file>
   <file>
     <filename>lua\lr_Client.lua</filename>
+  </file>
+  <file>
+    <filename>lua\lr_Config.lua</filename>
   </file>
   <file>
     <filename>lua\lr_Server.lua</filename>
