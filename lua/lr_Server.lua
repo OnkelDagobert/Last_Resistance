@@ -13,8 +13,7 @@ if Server then
     
 
 
-
-
+    
 
     local totalserverupdatetime = 0.0   
     local function h_UpdateServer(deltaTime)

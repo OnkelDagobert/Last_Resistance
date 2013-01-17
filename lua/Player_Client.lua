@@ -1239,6 +1239,24 @@ end
 function PlayerUI_MarineAbilityIconsImage()
 end
 
+function PlayerUI_GetGameInfo()
+    local entityList = Shared.GetEntitiesWithClassname("GameInfo")
+    local gameInfo = entityList:GetEntityAtIndex(0)    
+    return gameInfo
+end
+
+function PlayerUI_GetTimeLimit()      
+    return kRoundTimeLimit
+end
+
+function PlayerUI_GetTagModeTimeLimit()      
+    return kTagModeMaxLength
+end
+
+function PlayerUI_GetGameState()      
+    return PlayerUI_GetGameInfo():GetState()
+end
+
 function PlayerUI_GetGameStartTime()
 
     local entityList = Shared.GetEntitiesWithClassname("GameInfo")

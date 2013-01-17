@@ -26,7 +26,7 @@ local networkVars =
     timeAttackStarted = "time",
     deployed = "boolean",
     
-    ammo = "integer (0 to 255)",
+    ammo = "integer (0 to 999)",
     clip = "integer (0 to 200)",
     
     reloading = "boolean",

@@ -20,6 +20,15 @@ Script.Load("lua/Hud/GUIInventory.lua")
 
 class 'GUIAlienHUD' (GUIAnimatedScript)
 
+
+local kTextFontName = "fonts/AgencyFB_small.fnt"
+local kCommanderNameOffset = Vector(20, 330, 0)
+local kplayerScoreOffset = Vector(20, 360, 0)
+local kGameTimeTextFontSize = 26
+local kGameTimeTextPos = Vector(20, 390, 0)
+local kActiveCommanderColor = Color(246/255, 254/255, 37/255 )
+local kplayerScoreColor = Color(200/255, 37/255, 37/255 )
+
 local kTextureName = PrecacheAsset("ui/alien_hud_health.dds")
 local kHealthArmorTextureName = PrecacheAsset("ui/alien_health_armor.dds")
 local kHealthIconTextureCoordinates = {0, 0, 32, 32}
@@ -150,6 +159,42 @@ function GUIAlienHUD:Initialize()
     self.resourceDisplay.background:SetFloatParameter("correctionX", 1)
     self.resourceDisplay.background:SetFloatParameter("correctionY", 0.3)
 
+
+    self.ModName = self:CreateAnimatedTextItem()
+    self.ModName:SetFontName(kTextFontName)
+    self.ModName:SetTextAlignmentX(GUIItem.Align_Min)
+    self.ModName:SetTextAlignmentY(GUIItem.Align_Min)
+    self.ModName:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.ModName:SetLayer(kGUILayerPlayerHUDForeground1)
+    self.ModName:SetFontName(GUIMarineHUD.kCommanderFontName)
+    self.ModName:SetColor(Color(1,1,1,1))
+    self.ModName:SetFontIsBold(true)
+    //self.background:AddChild(self.ModName)
+    
+    
+    //ISSUE #13
+    self.playerScore = self:CreateAnimatedTextItem()
+    self.playerScore:SetFontName(GUIMarineHUD.kTextFontName)
+    self.playerScore:SetTextAlignmentX(GUIItem.Align_Min)
+    self.playerScore:SetTextAlignmentY(GUIItem.Align_Min)
+    self.playerScore:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.playerScore:SetLayer(kGUILayerPlayerHUDForeground1)
+    self.playerScore:SetFontName(kTextFontName)
+    self.playerScore:SetColor(Color(1,1,1,1))
+    self.playerScore:SetFontIsBold(true)
+    //self.background:AddChild(self.playerScore)
+    
+    //ISSUE #13
+    self.gameTimeText = self:CreateAnimatedTextItem()
+    self.gameTimeText:SetLayer(kGUILayerPlayerHUDForeground2)
+    self.gameTimeText:SetFontName(kTextFontName)
+    self.gameTimeText:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.gameTimeText:SetColor(kAlienBrightColor)
+    self.gameTimeText:SetTextAlignmentX(GUIItem.Align_Min)
+    self.gameTimeText:SetTextAlignmentY(GUIItem.Align_Min)
+    //self.gameTimeText:AddAsChildTo(self.background)
+    
+    
     
     self:Reset()
     
@@ -179,7 +224,19 @@ function GUIAlienHUD:Reset()
     self.eventDisplay:Reset(self.scale)
     self.inventoryDisplay:Reset(self.scale)
    
- 
+   
+    self.ModName:SetUniformScale(self.scale)
+    self.ModName:SetScale(GetScaledVector() * 1.1)
+    self.ModName:SetPosition(kCommanderNameOffset)
+    
+    //ISSUE #13
+    self.playerScore:SetUniformScale(self.scale)
+    self.playerScore:SetScale(GetScaledVector() * 1.1)
+    self.playerScore:SetPosition(kplayerScoreOffset)
+    
+    self.gameTimeText:SetUniformScale(self.scale)
+    self.gameTimeText:SetScale(GetScaledVector() * 1.1)
+    self.gameTimeText:SetPosition(kGameTimeTextPos)
 end
 
 function GUIAlienHUD:CreateHealthBall()
@@ -618,6 +675,36 @@ function GUIAlienHUD:Update(deltaTime)
     UpdateNotifications(self, deltaTime)
     
     self.inventoryDisplay:Update(deltaTime, { PlayerUI_GetActiveWeaponTechId(), PlayerUI_GetInventoryTechIds() })
+    
+    
+    //ISSUE #12
+    self.ModName:SetColor(kActiveCommanderColor)
+    self.ModName:SetText("Survivor Mode")
+    
+    //ISSUE #13
+    //Update Player Score
+    local current_ps = Scoreboard_GetPlayerData(Client.GetLocalPlayer():GetClientIndex(), "Score")
+    local playerscorestr = string.format(Locale.ResolveString("SURV_SCORE"), current_ps)
+    self.playerScore:SetColor(kplayerScoreColor)
+    self.playerScore:SetText(playerscorestr)
+    
+    // Update game time
+    local gameTime = PlayerUI_GetGameStartTime()
+    
+    if gameTime ~= 0 then
+        gameTime = math.floor(Shared.GetTime()) - PlayerUI_GetGameStartTime()
+        if PlayerUI_GetGameState() == kGameState.TagMode then 
+            gameTime = PlayerUI_GetTagModeTimeLimit() - gameTime
+        elseif PlayerUI_GetGameState() == kGameState.Started then
+            gameTime = PlayerUI_GetTimeLimit() - gameTime
+        end
+    end
+    
+    local minutes = math.floor(gameTime/60)
+    local seconds = gameTime - minutes*60
+    local gameTimeText = string.format("Time Left: %d:%02d", minutes, seconds)
+    
+    self.gameTimeText:SetText(gameTimeText)
     
 end
 

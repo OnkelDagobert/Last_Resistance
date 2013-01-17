@@ -186,7 +186,8 @@ function GUIPlayerResource:Update(deltaTime, parameters)
     self.rtCount:SetPosition(Vector(-width/2, GUIPlayerResource.kRTCountYOffset * self.scale, 0))
     
     self.personalText:SetText(ToString(math.floor(pRes)))
-    self.teamText:SetText(string.format(Locale.ResolveString("TEAM_RES"), tRes))
+    //Issue #13
+    //self.teamText:SetText(string.format(Locale.ResolveString("SURV_SCORE"), tRes))
     
     if pRes > self.lastPersonalResources then
     

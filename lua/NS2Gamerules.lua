@@ -21,9 +21,11 @@ class 'NS2Gamerules' (Gamerules)
 NS2Gamerules.kMapName = "ns2_gamerules"
 
 local kGameEndCheckInterval = 0.75
+//Gets overwritten by lr_Config.lua
 kPregameLength      = 15
 kTagModeMaxLength   = 30
 kTimeToReadyRoom    = 15
+kRoundTimeLimit     = 6
 local kPauseToSocializeBeforeMapcycle = 30
 
 
@@ -1025,7 +1027,8 @@ if Server then
                 //self:UpdateToReadyRoom() // ISSUE #3
                 self:UpdateToMarines()
                 self:UpdateMapCycle()
-                UpdateAutoTeamBalance(self, timePassed)
+                //ISSUE #10
+                //UpdateAutoTeamBalance(self, timePassed)
                 
                 self.timeSinceGameStateChanged = self.timeSinceGameStateChanged + timePassed
                 
@@ -1040,8 +1043,9 @@ if Server then
                 self:UpdateHealth()
                 self:UpdateTechPoints()
                 
-                CheckForNoCommander(self, self.team1, "MarineCommander")
-                CheckForNoCommander(self, self.team2, "AlienCommander")
+                //ISSUE #12
+                //CheckForNoCommander(self, self.team1, "MarineCommander")
+                //CheckForNoCommander(self, self.team2, "AlienCommander")
                 
             end
             

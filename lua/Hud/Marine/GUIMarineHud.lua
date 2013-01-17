@@ -19,6 +19,7 @@ Script.Load("lua/Hud/Marine/GUIMarineHUDStyle.lua")
 Script.Load("lua/Hud/GUIInventory.lua")
 Script.Load("lua/TechTreeConstants.lua")
 
+
 class 'GUIMarineHUD' (GUIAnimatedScript)
 
 GUIMarineHUD.kUpgradesTexture = "ui/buildmenu.dds"
@@ -56,6 +57,7 @@ GUIMarineHUD.kUpgradeSize = Vector(100, 100, 0)
 GUIMarineHUD.kUpgradePos = Vector(-GUIMarineHUD.kUpgradeSize.x - 16, 40, 0)
 
 GUIMarineHUD.kCommanderNameOffset = Vector(20, 330, 0)
+GUIMarineHUD.kplayerScoreOffset = Vector(20, 360, 0)
 
 GUIMarineHUD.kMinimapYOffset = 5
 
@@ -104,9 +106,10 @@ GUIMarineHUD.kNanoShieldFontName = "fonts/AgencyFB_large.fnt"
 GUIMarineHUD.kNanoShieldFontSize = 20
 
 GUIMarineHUD.kActiveCommanderColor = Color(246/255, 254/255, 37/255 )
+GUIMarineHUD.kplayerScoreColor = Color(37/255, 200/255, 37/255 )
 
 GUIMarineHUD.kGameTimeTextFontSize = 26
-GUIMarineHUD.kGameTimeTextPos = Vector(210, -170, 0)
+GUIMarineHUD.kGameTimeTextPos = Vector(20, 390, 0)
 
 GUIMarineHUD.kLocationTextSize = 22
 GUIMarineHUD.kLocationTextOffset = Vector(180, 46, 0)
@@ -180,16 +183,41 @@ function GUIMarineHUD:Initialize()
     
     // create all hud elements
     
-    self.commanderName = self:CreateAnimatedTextItem()
-    self.commanderName:SetFontName(GUIMarineHUD.kTextFontName)
-    self.commanderName:SetTextAlignmentX(GUIItem.Align_Min)
-    self.commanderName:SetTextAlignmentY(GUIItem.Align_Min)
-    self.commanderName:SetAnchor(GUIItem.Left, GUIItem.Top)
-    self.commanderName:SetLayer(kGUILayerPlayerHUDForeground1)
-    self.commanderName:SetFontName(GUIMarineHUD.kCommanderFontName)
-    self.commanderName:SetColor(Color(1,1,1,1))
-    self.commanderName:SetFontIsBold(true)
-    self.background:AddChild(self.commanderName)
+    //ISSUE #12
+    //self.commanderName = self:CreateAnimatedTextItem()
+    //self.commanderName:SetFontName(GUIMarineHUD.kTextFontName)
+    //self.commanderName:SetTextAlignmentX(GUIItem.Align_Min)
+    //self.commanderName:SetTextAlignmentY(GUIItem.Align_Min)
+    //self.commanderName:SetAnchor(GUIItem.Left, GUIItem.Top)
+    //self.commanderName:SetLayer(kGUILayerPlayerHUDForeground1)
+    //self.commanderName:SetFontName(GUIMarineHUD.kCommanderFontName)
+    //self.commanderName:SetColor(Color(1,1,1,1))
+    //self.commanderName:SetFontIsBold(true)
+    //self.background:AddChild(self.commanderName)
+    
+    self.ModName = self:CreateAnimatedTextItem()
+    self.ModName:SetFontName(GUIMarineHUD.kTextFontName)
+    self.ModName:SetTextAlignmentX(GUIItem.Align_Min)
+    self.ModName:SetTextAlignmentY(GUIItem.Align_Min)
+    self.ModName:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.ModName:SetLayer(kGUILayerPlayerHUDForeground1)
+    self.ModName:SetFontName(GUIMarineHUD.kCommanderFontName)
+    self.ModName:SetColor(Color(1,1,1,1))
+    self.ModName:SetFontIsBold(true)
+    self.background:AddChild(self.ModName)
+    
+    
+    //ISSUE #13
+    self.playerScore = self:CreateAnimatedTextItem()
+    self.playerScore:SetFontName(GUIMarineHUD.kTextFontName)
+    self.playerScore:SetTextAlignmentX(GUIItem.Align_Min)
+    self.playerScore:SetTextAlignmentY(GUIItem.Align_Min)
+    self.playerScore:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.playerScore:SetLayer(kGUILayerPlayerHUDForeground1)
+    self.playerScore:SetFontName(GUIMarineHUD.kCommanderFontName)
+    self.playerScore:SetColor(Color(1,1,1,1))
+    self.playerScore:SetFontIsBold(true)
+    self.background:AddChild(self.playerScore)
     
     self.scanLeft = self:CreateAnimatedGraphicItem()    
     self.scanLeft:SetTexture(GUIMarineHUD.kScanTexture)
@@ -207,13 +235,15 @@ function GUIMarineHUD:Initialize()
     self.scanRight:SetBlendTechnique(GUIItem.Add)
     self.scanRight:AddAsChildTo(self.background)
     
-    //self.gameTimeText = self:CreateAnimatedTextItem()
-    //self.gameTimeText:SetLayer(kGUILayerPlayerHUDForeground2)
-    //self.gameTimeText:SetFontName(GUIMarineHUD.kTextFontName)
-    //self.gameTimeText:SetAnchor(GUIItem.Left, GUIItem.Bottom)
-    //self.gameTimeText:SetColor(kBrightColor)
-    //self.gameTimeText:SetTextAlignmentX(GUIItem.Align_Center)
-    //self.gameTimeText:AddAsChildTo(self.background)
+    //ISSUE #13
+    self.gameTimeText = self:CreateAnimatedTextItem()
+    self.gameTimeText:SetLayer(kGUILayerPlayerHUDForeground2)
+    self.gameTimeText:SetFontName(GUIMarineHUD.kTextFontName)
+    self.gameTimeText:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.gameTimeText:SetColor(kBrightColor)
+    self.gameTimeText:SetTextAlignmentX(GUIItem.Align_Min)
+    self.gameTimeText:SetTextAlignmentY(GUIItem.Align_Min)
+    self.gameTimeText:AddAsChildTo(self.background)
     
     if self.minimapEnabled then
         self:InitializeMinimap()
@@ -438,9 +468,23 @@ function GUIMarineHUD:Reset()
     self.scanRight:SetSize(Vector(-1100, 1200, 0))
     self.scanRight:SetColor(Color(1,1,1,0))
 
-    self.commanderName:SetUniformScale(self.scale)
-    self.commanderName:SetScale(GetScaledVector() * 1.1)
-    self.commanderName:SetPosition(GUIMarineHUD.kCommanderNameOffset)
+    //ISSUE #12
+    //self.commanderName:SetUniformScale(self.scale)
+    //self.commanderName:SetScale(GetScaledVector() * 1.1)
+    //self.commanderName:SetPosition(GUIMarineHUD.kCommanderNameOffset)
+    
+    self.ModName:SetUniformScale(self.scale)
+    self.ModName:SetScale(GetScaledVector() * 1.1)
+    self.ModName:SetPosition(GUIMarineHUD.kCommanderNameOffset)
+    
+    //ISSUE #13
+    self.playerScore:SetUniformScale(self.scale)
+    self.playerScore:SetScale(GetScaledVector() * 1.1)
+    self.playerScore:SetPosition(GUIMarineHUD.kplayerScoreOffset)
+    
+    self.gameTimeText:SetUniformScale(self.scale)
+    self.gameTimeText:SetScale(GetScaledVector() * 1.1)
+    self.gameTimeText:SetPosition(GUIMarineHUD.kGameTimeTextPos)
     
     self.statusDisplay:Reset(self.scale)
     self.eventDisplay:Reset(self.scale)
@@ -581,8 +625,12 @@ function GUIMarineHUD:Update(deltaTime)
     // Update inventory
     self.inventoryDisplay:Update(deltaTime, { PlayerUI_GetActiveWeaponTechId(), PlayerUI_GetInventoryTechIds() })
     
+    
+    //ISSUE #12
+    self.ModName:SetColor(GUIMarineHUD.kActiveCommanderColor)
+    self.ModName:SetText("Survivor Mode")
     // Update commander name
-    local commanderName = PlayerUI_GetCommanderName()
+    /*local commanderName = PlayerUI_GetCommanderName()
     
     if commanderName == nil then
     
@@ -608,7 +656,7 @@ function GUIMarineHUD:Update(deltaTime)
             
         end
         
-    end
+    end    
     
     commanderName = string.upper(commanderName)
     if self.lastCommanderName ~= commanderName then
@@ -618,20 +666,32 @@ function GUIMarineHUD:Update(deltaTime)
         self.commanderName:SetText(commanderName, 0.5, "COMM_TEXT_WRITE")
         self.lastCommanderName = commanderName
         
-    end
+    end*/
+    
+    //ISSUE #13
+    //Update Player Score
+    local current_ps = Scoreboard_GetPlayerData(Client.GetLocalPlayer():GetClientIndex(), "Score")
+    local playerscorestr = string.format(Locale.ResolveString("SURV_SCORE"), current_ps)
+    self.playerScore:SetColor(GUIMarineHUD.kplayerScoreColor)
+    self.playerScore:SetText(playerscorestr)
     
     // Update game time
     local gameTime = PlayerUI_GetGameStartTime()
     
     if gameTime ~= 0 then
         gameTime = math.floor(Shared.GetTime()) - PlayerUI_GetGameStartTime()
+        if PlayerUI_GetGameState() == kGameState.TagMode then 
+            gameTime = PlayerUI_GetTagModeTimeLimit() - gameTime
+        elseif PlayerUI_GetGameState() == kGameState.Started then
+            gameTime = PlayerUI_GetTimeLimit() - gameTime
+        end
     end
     
-    //local minutes = math.floor(gameTime/60)
-    //local seconds = gameTime - minutes*60
-    //local gameTimeText = string.format("game time: %d:%02d", minutes, seconds)
+    local minutes = math.floor(gameTime/60)
+    local seconds = gameTime - minutes*60
+    local gameTimeText = string.format("Time Left: %d:%02d", minutes, seconds)
     
-    //self.gameTimeText:SetText(gameTimeText)
+    self.gameTimeText:SetText(gameTimeText)
     
     // Update minimap
     local locationName = PlayerUI_GetLocationName()
