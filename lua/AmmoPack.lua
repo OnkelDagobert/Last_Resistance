@@ -17,7 +17,12 @@ AmmoPack.kMapName = "ammopack"
 AmmoPack.kModelName = PrecacheAsset("models/marine/ammopack/ammopack.model")
 AmmoPack.kPickupSound = PrecacheAsset("sound/NS2.fev/marine/common/pickup_ammo")
 
-AmmoPack.kNumClips = 5
+if Server then
+    AmmoPack.kNumClips = kLRconfig.kSupplyAmmoClips
+end
+if Client then
+    AmmoPack.kNumClips = 2
+end
 
 function AmmoPack:OnInitialized()
 

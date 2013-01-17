@@ -54,7 +54,8 @@ if Server then
             self.ammopack_id = ammopack:GetId()           
             ammopack.physicsModel:SetGravityEnabled(false) 
             ammopack.physicsModel:SetCollisionEnabled(false)
-            ammopack.GetIsPermanent = true            
+            ammopack.GetIsPermanent = true  
+            ammopack.kNumClips = kLRconfig.kSupplyAmmoClips           
             self.ammopack_lt = 0
         end 
         if self.medpack_id == 0 or (Shared.GetEntity( self.medpack_id ) == nil and Shared.GetTime() - self.medpack_lt >= kLRconfig.kSupplyRespawnTime) then            

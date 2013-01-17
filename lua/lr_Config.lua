@@ -72,6 +72,7 @@ if Server then
         //ISSUE #17
         kLRconfig.kSupplyEnable              = true  //Enable Ammo/Health Spawn at TechPoints
         kLRconfig.kSupplyRespawnTime         = 30
+        kLRconfig.kSupplyAmmoClips           = 2
         
         kLRconfig.kWeaponDropEnable          = true  //Enable Weapon Spawn at TechPoints
         kLRconfig.kWeaponDropRespawnTime     = 45    //Time weapon spawn is blocked after someone took the old weapon
@@ -82,7 +83,8 @@ if Server then
         kLRconfig.kWeaponDrop_probability.shotgun         = 0.5
         kLRconfig.kWeaponDrop_probability.rifle           = 0.0
         kLRconfig.kWeaponDrop_probability.mine            = 0.1
-        kLRconfig.kWeaponDrop_probability.exosuit         = 0.0  //not tested
+        //kLRconfig.kWeaponDrop_probability.jetpack         = 0.05        
+        //kLRconfig.kWeaponDrop_probability.exosuit         = 0.0  //not tested
         //kLRconfig.kWeaponDrop_probability.railgun         = 0.0  //nope
         //kLRconfig.kWeaponDrop_probability.minigun         = 0.0  //minigun doesn't work
         //ADD new WEAPON like: kWeaponDrop_probability.kMapName = probability
@@ -93,7 +95,7 @@ if Server then
         
         kLRconfig.Marines                           = {}
         kLRconfig.Marines.Weapons                   = {}
-        kLRconfig.Marines.Weapons.NumStartClips     = 5     // # of Ammo Clips Marines spawn with
+        kLRconfig.Marines.Weapons.NumStartClips     = 2     // # of Ammo Clips Marines spawn with        
         kLRconfig.Marines.TechResearched            = {}
         kLRconfig.Marines.TechResearched.ArmorLvL   = 0
         kLRconfig.Marines.TechResearched.WeaponsLVL = 0
