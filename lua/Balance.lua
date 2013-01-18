@@ -148,10 +148,10 @@ kBoneShieldCost = 0
 kCelerityCost = 3
 kHyperMutationCost = 0
 
-kPlayingTeamInitialTeamRes = 50
+kPlayingTeamInitialTeamRes = 0
 kMaxTeamResources = 200
 
-kPlayerInitialIndivRes = 25
+kPlayerInitialIndivRes = 0
 kMaxPersonalResources = 100
 
 kResourceTowerResourceInterval = 6
