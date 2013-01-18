@@ -95,7 +95,7 @@ if Server then
         
         kLRconfig.Marines                           = {}
         kLRconfig.Marines.Weapons                   = {}
-        kLRconfig.Marines.Weapons.NumStartClips     = 2     // # of Ammo Clips Marines spawn with        
+        kLRconfig.Marines.Weapons.NumStartClips     = 1     // # of Ammo Clips Marines spawn with        
         kLRconfig.Marines.TechResearched            = {}
         kLRconfig.Marines.TechResearched.ArmorLvL   = 0
         kLRconfig.Marines.TechResearched.WeaponsLVL = 0
