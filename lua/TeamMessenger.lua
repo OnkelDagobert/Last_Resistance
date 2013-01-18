@@ -40,7 +40,12 @@ local usernameStringGen = function(playerid, messageString)
             break
         end
     end 
-    return string.format(Locale.ResolveString(messageString),playername)
+    //return string.format(Locale.ResolveString(messageString),playername)
+    return string.format("%s is mutating!",playername)
+end
+
+local tag_mode_str = function()
+    return "           Tag mode!\nFrag your neighbor!!!"
 end
 
 kTeamMessages[kTeamMessageTypes.PowerLost] = { text = { [kMarineTeamType] = function(data) return locationStringGen(data, "POWER_LOST") end } }
@@ -88,7 +93,8 @@ kTeamMessages[kTeamMessageTypes.NoCommander] = { text = { [kMarineTeamType] = "N
 kTeamMessages[kTeamMessageTypes.PlayerMutated] = { text = { [kMarineTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end,
                                                          [kAlienTeamType] = function(data) return usernameStringGen(data,"PLAYER_MUTATED") end } }
                                                          
-kTeamMessages[kTeamMessageTypes.TagMode] = { text = { [kMarineTeamType] = "TAG_MODE", [kAlienTeamType] = "TAG_MODE" } }
+//kTeamMessages[kTeamMessageTypes.TagMode] = { text = { [kMarineTeamType] = "TAG_MODE", [kAlienTeamType] = "TAG_MODE" } }
+kTeamMessages[kTeamMessageTypes.TagMode] = { text = { [kMarineTeamType] = function(data) return tag_mode_str() end, [kAlienTeamType] = function(data) return tag_mode_str() end } }
 kTeamMessages[kTeamMessageTypes.SurviveStart] = { text = { [kMarineTeamType] = "SURV_START_MARINE", [kAlienTeamType] = "SURV_START_ALIEN" } }                                                     
 
 // Silly name but it fits the convention.
