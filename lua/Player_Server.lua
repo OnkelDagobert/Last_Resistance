@@ -200,6 +200,13 @@ function Player:OnKill(killer, doer, point, direction)
     
     // Set next think to 0 to disable
     self:SetNextThink(0)
+    
+    if GetGamerules():GetGameTagMode() then        
+        GetGamerules():SetGameState(kGameState.Started) 
+        GetGamerules().team1:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)
+        GetGamerules().team2:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)   
+        SendGlobalMessage( kTeamMessageTypes.SurviveStart)
+    end
         
 end
 
