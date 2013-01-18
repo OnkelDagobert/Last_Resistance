@@ -595,7 +595,7 @@ function PlayingTeam:RespawnPlayer(player, origin, angles)
         */
        
         //Try to find a valid spawnpoint... 40 trys
-        for i = 0, 40, 1 do
+        for i = 0, 80, 1 do
             if powerPoints == nil or #powerPoints == 0 then
                 spawnOrigin = GetRandomSpawnForCapsule(capsuleHeight, capsuleRadius, initialTechPoint:GetOrigin(), 2, 15, EntityFilterAll())
             else                
@@ -611,7 +611,34 @@ function PlayingTeam:RespawnPlayer(player, origin, angles)
                 end
             end 
             if spawnOrigin ~=nil then
-                break
+                if i < 20 then 
+                    if player:GetTeamNumber() == kTeam2Index then                        
+                        local entl = GetEntitiesWithinRange("Marine",spawnOrigin, 40)                        
+                        if #entl==0 then                               
+                            break
+                        end 
+                    elseif player:GetTeamNumber() == kTeam1Index then
+                        local entl = GetEntitiesWithinRange("Marine",spawnOrigin, 20)                        
+                        if #entl==0 then                        
+                            break
+                        end 
+                    end
+                elseif i < 40 then                    
+                    if player:GetTeamNumber() == kTeam2Index then                        
+                        local entl = GetEntitiesWithinRange("Marine",spawnOrigin, 20)                        
+                        if #entl==0 then                               
+                            break
+                        end 
+                    elseif player:GetTeamNumber() == kTeam1Index then
+                        local entl = GetEntitiesWithinRange("Marine",spawnOrigin, 8)                        
+                        if #entl==0 then                        
+                            break
+                        end 
+                    end
+                else
+                    Print("Couldn't find 'clean' spawn! ")            
+                    break
+                end
             end  
         end   
         
