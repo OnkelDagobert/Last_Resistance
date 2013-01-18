@@ -20,7 +20,7 @@ Flame.kFireWallEffect     = PrecacheAsset("cinematics/marine/flamethrower/burnin
 Flame.kDamageRadius       = 1.8
 Flame.kLifeTime           = 5.6
 Flame.kThinkTime          = .6
-Flame.kDamage             = 8
+Flame.kDamage             = 16
 
 local networkVars = { }
 

@@ -63,7 +63,7 @@ if Server then
 
     function  makeDefaultConfig()
         
-        kLRconfig.kPregameLength             = 15    //Time before Tagmode (no crosshair)
+        kLRconfig.kPregameLength             = 3     //Time before Tagmode (no crosshair)
         kLRconfig.kTagModeMaxLength          = 30    //After this time Server decides who will be alien
         kLRconfig.kRoundTimeLimit            = 360   //6min
         kLRconfig.kAftergameLength           = 15    //Time the scoreboard will show up until the next round starts

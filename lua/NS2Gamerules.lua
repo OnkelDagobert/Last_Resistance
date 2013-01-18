@@ -1184,7 +1184,9 @@ if Server then
     end
     
     function NS2Gamerules:GetCanSpawnImmediately()
-        return not self:GetGameStarted() or Shared.GetCheatsEnabled() or (Shared.GetTime() < (self.gameStartTime + kFreeSpawnTime))
+        //ISSUE #22
+        return true
+        //return not self:GetGameStarted() or Shared.GetCheatsEnabled() or (Shared.GetTime() < (self.gameStartTime + kFreeSpawnTime))
     end
     
     // Returns bool for success and bool if we've played in the game already.
