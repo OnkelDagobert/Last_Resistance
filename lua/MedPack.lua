@@ -17,7 +17,7 @@ MedPack.kMapName = "medpack"
 MedPack.kModelName = PrecacheAsset("models/marine/medpack/medpack.model")
 MedPack.kHealthSound = PrecacheAsset("sound/NS2.fev/marine/common/health")
 
-MedPack.kHealth = 50
+MedPack.kHealth = 100
 
 function MedPack:OnInitialized()
 

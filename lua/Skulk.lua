@@ -56,25 +56,25 @@ AddMixinNetworkVars(DissolveMixin, networkVars)
 
 // Balance, movement, animation
 	
-Skulk.kJumpRepeatTime = 0.2
+Skulk.kJumpRepeatTime = 0.2     //cant see any effect
 Skulk.kViewOffsetHeight = .55
 Skulk.kHealth = kSkulkHealth
 Skulk.kArmor = kSkulkArmor
-Skulk.kLeapVerticalVelocity = 4
-Skulk.kLeapVerticalForce = 9
-Skulk.kMinLeapVelocity = 20
+Skulk.kLeapVerticalVelocity = 16
+Skulk.kLeapVerticalForce = 10
+Skulk.kMinLeapVelocity = 10
 Skulk.kLeapTime = 0.4
-Skulk.kLeapForce = 9
-Skulk.kMaxSpeed = 2
+Skulk.kLeapForce = 20
+Skulk.kMaxSpeed = 1.5
 
-Skulk.kMaxWalkSpeed = 1
+Skulk.kMaxWalkSpeed = 1.5
 Skulk.kWallJumpInterval = 0.3
 
-Skulk.kAcceleration = 120
-Skulk.kGroundFriction = 20
+Skulk.kAcceleration = 240   //doubled to compensate higher GroundFriction
+Skulk.kGroundFriction = 36  //doubled to reduce sliding after leap
 Skulk.kGroundWalkFriction = 33
 
-Skulk.kMass = 45 // ~100 pounds
+Skulk.kMass = 45 // ~100 pounds  //no effect
 
 Skulk.kWallWalkCheckInterval = .1
 // This is how quickly the 3rd person model will adjust to the new normal.
@@ -106,9 +106,11 @@ Skulk.kMaxVerticalAirAccel = 12
 Skulk.kWallJumpForce = 1.2
 Skulk.kMinWallJumpSpeed = 9
 
-Skulk.kAirZMoveWeight = 5
-Skulk.kAirStrafeWeight = 2.5
+Skulk.kAirZMoveWeight = 0.1
+Skulk.kAirStrafeWeight = 0.1
 Skulk.kAirAccelerationFraction = 0.5
+
+Skulk.kAirFriction = 0.80
 
 function Skulk:OnCreate()
 
@@ -372,10 +374,12 @@ function Skulk:UpdatePosition(velocity, time)
     
     local wasOnSurface = self:GetIsOnSurface()
     local oldSpeed = velocity:GetLengthXZ()
+    local oldYSpeed = velocity.y
     
     velocity, hitEntities, self.averageSurfaceNormal = Alien.UpdatePosition(self, velocity, time)
     local newSpeed = velocity:GetLengthXZ()
-
+    local newYSpeed = velocity.y
+    
     if not self.wallWalkingEnabled then
 
         // we enable wallkwalk if we are no longer on ground but were the previous 
@@ -391,6 +395,11 @@ function Skulk:UpdatePosition(velocity, time)
             end
         end
 
+    end
+      
+    if self.leaping and oldYSpeed >1 and newYSpeed < 0.5 then        
+        requestedVelocity.x = requestedVelocity.x * 0.8
+        requestedVelocity.z = requestedVelocity.z * 0.8
     end
     
     if not wasOnSurface and self:GetIsOnSurface() then
@@ -573,7 +582,7 @@ function Skulk:GetGroundFrictionForce()
 end
 
 function Skulk:GetAirFrictionForce()
-    return 0.25
+    return Skulk.kAirFriction 
 end 
 
 function Skulk:GetFrictionForce(input, velocity)

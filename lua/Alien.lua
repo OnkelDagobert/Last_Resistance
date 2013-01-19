@@ -63,7 +63,7 @@ Alien.kAnimOverlayAttack = "attack"
 
 Alien.kWalkBackwardSpeedScalar = 0.75
 
-Alien.kEnergyRecuperationRate = 10.0
+Alien.kEnergyRecuperationRate = 20.0
 
 // How long our "need healing" text gets displayed under our blip
 Alien.kCustomBlipDuration = 10

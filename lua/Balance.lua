@@ -269,11 +269,11 @@ kWeapons3DamageScalar = 1.3
 kNanoShieldDamageReductionDamage = 0.5
 
 // ALIEN DAMAGE
-kBiteDamage = 110
+kBiteDamage = 80
 kBiteDamageType = kDamageType.Normal
-kBiteEnergyCost = 20.85
+kBiteEnergyCost = 20
 
-kLeapEnergyCost = 30
+kLeapEnergyCost = 50
 
 kParasiteDamage = 10
 kParasiteDamageType = kDamageType.Normal

@@ -131,7 +131,7 @@ kCorrodeDamagePlayerArmorScalar = 0.1
 kCorrodeDamageExoArmorScalar = 0.2
 
 // deal only 60% of damage to friendlies
-kFriendlyFireScalar = 1
+kFriendlyFireScalar = 1.5
 
 local function ApplyDefaultArmorUseFraction(target, attacker, doer, damage, armorFractionUsed, healthPerArmor, damageType)
     return damage, kBaseArmorUseFraction, healthPerArmor
