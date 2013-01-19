@@ -215,7 +215,7 @@ kGrenadeLauncherClipSize = 4
 kGrenadeLauncherGrenadeDamageRadius = 8
 kGrenadeLifetime = 2.0
 
-kShotgunDamage = 17
+kShotgunDamage = 20
 kShotgunDamageType = kDamageType.Normal
 kShotgunClipSize = 8
 kShotgunBulletsPerShot = 10
@@ -269,11 +269,11 @@ kWeapons3DamageScalar = 1.3
 kNanoShieldDamageReductionDamage = 0.5
 
 // ALIEN DAMAGE
-kBiteDamage = 80
+kBiteDamage = 90
 kBiteDamageType = kDamageType.Normal
 kBiteEnergyCost = 20
 
-kLeapEnergyCost = 50
+kLeapEnergyCost = 45
 
 kParasiteDamage = 10
 kParasiteDamageType = kDamageType.Normal

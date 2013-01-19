@@ -22,6 +22,7 @@ class 'GUIAlienHUD' (GUIAnimatedScript)
 
 
 local kTextFontName = "fonts/AgencyFB_small.fnt"
+local khINOffset = Vector(-200, 20, 0)
 local kCommanderNameOffset = Vector(20, 330, 0)
 local kplayerScoreOffset = Vector(20, 360, 0)
 local kGameTimeTextFontSize = 26
@@ -159,7 +160,17 @@ function GUIAlienHUD:Initialize()
     self.resourceDisplay.background:SetFloatParameter("correctionX", 1)
     self.resourceDisplay.background:SetFloatParameter("correctionY", 0.3)
 
-
+    self.hIn = self:CreateAnimatedTextItem()
+    self.hIn:SetFontName(kTextFontName)
+    self.hIn:SetTextAlignmentX(GUIItem.Align_Min)
+    self.hIn:SetTextAlignmentY(GUIItem.Align_Min)
+    self.hIn:SetAnchor(GUIItem.Right, GUIItem.Top)
+    self.hIn:SetLayer(kGUILayerPlayerHUDForeground1)
+    self.hIn:SetFontName(GUIMarineHUD.kCommanderFontName)
+    self.hIn:SetColor(Color(1,1,1,1))
+    self.hIn:SetFontIsBold(true)
+    
+    
     self.ModName = self:CreateAnimatedTextItem()
     self.ModName:SetFontName(kTextFontName)
     self.ModName:SetTextAlignmentX(GUIItem.Align_Min)
@@ -224,6 +235,9 @@ function GUIAlienHUD:Reset()
     self.eventDisplay:Reset(self.scale)
     self.inventoryDisplay:Reset(self.scale)
    
+    self.hIn:SetUniformScale(self.scale)
+    self.hIn:SetScale(GetScaledVector() * 1.1)
+    self.hIn:SetPosition(khINOffset)
    
     self.ModName:SetUniformScale(self.scale)
     self.ModName:SetScale(GetScaledVector() * 1.1)
@@ -676,6 +690,20 @@ function GUIAlienHUD:Update(deltaTime)
     
     self.inventoryDisplay:Update(deltaTime, { PlayerUI_GetActiveWeaponTechId(), PlayerUI_GetInventoryTechIds() })
     
+    //   
+    if Client.GetLocalPlayer().humanIndicator == 1 then
+        self.hIn:SetColor(Color( 254/255, 37/255, 37/255 ))
+        self.hIn:SetText("Humans Dedected")
+    elseif Client.GetLocalPlayer().humanIndicator == 2 then
+        self.hIn:SetColor(Color( 254/255, 150/255, 37/255 ))
+        self.hIn:SetText("Humans Dedected")
+    elseif Client.GetLocalPlayer().humanIndicator == 3 then
+        self.hIn:SetColor(Color( 254/255, 254/255, 37/255 ))
+        self.hIn:SetText("Humans Dedected")
+    else
+        self.hIn:SetColor(Color(37/255, 254/255, 37/255 ))
+        self.hIn:SetText("No Humans nearby")
+    end
     
     //ISSUE #12
     self.ModName:SetColor(kActiveCommanderColor)

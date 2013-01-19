@@ -355,6 +355,10 @@ function Player:OnUpdatePlayer(deltaTime)
     end
     self.teamLastThink = self:GetTeam()
     
+    if self:GetTeamNumber() == kTeam2Index then
+        self:CalcHumanIndicator()
+    end
+    
 end
 
 // Remember game time player enters queue so they can be spawned in FIFO order

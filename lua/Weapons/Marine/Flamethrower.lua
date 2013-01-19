@@ -30,7 +30,7 @@ local kFlameSmokeCinematic = PrecacheAsset("cinematics/marine/flamethrower/flame
 
 local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/flamethrower/attack_loop")
 
-local kRange = 16
+local kRange = 12
 
 local kParticleEffectRate = .05
 local kSmokeEffectRate = 1.5

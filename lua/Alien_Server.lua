@@ -279,3 +279,27 @@ function Alien:CopyPlayerDataFrom(player)
     end
     
 end
+
+
+function Alien:CalcHumanIndicator()
+    local entl1 = GetEntitiesWithinRange("Marine",self:GetOrigin(), 20)                        
+    if #entl1==0 then        
+        local entl2 = GetEntitiesWithinRange("Marine",self:GetOrigin(), 30)    
+        if #entl2==0 then   
+            local entl3 = GetEntitiesWithinRange("Marine",self:GetOrigin(), 40)    
+            if #entl3==0 then                                       
+                self.humanIndicator = 0
+            else
+                self.humanIndicator = 3
+            end
+        else
+            self.humanIndicator = 2
+        end
+    else
+        self.humanIndicator = 1
+    end
+end
+
+
+
+

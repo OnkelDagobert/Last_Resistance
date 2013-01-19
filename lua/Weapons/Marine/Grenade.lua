@@ -18,7 +18,7 @@ class 'Grenade' (Projectile)
 Grenade.kMapName = "grenade"
 Grenade.kModelName = PrecacheAsset("models/marine/rifle/rifle_grenade.model")
 
-local kMinLifeTime = .7
+local kMinLifeTime = .3
 
 // prevents collision with friendly players in range to spawnpoint
 Grenade.kDisableCollisionRange = 10

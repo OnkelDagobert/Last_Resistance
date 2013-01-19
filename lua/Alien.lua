@@ -63,7 +63,7 @@ Alien.kAnimOverlayAttack = "attack"
 
 Alien.kWalkBackwardSpeedScalar = 0.75
 
-Alien.kEnergyRecuperationRate = 20.0
+Alien.kEnergyRecuperationRate = 25.0
 
 // How long our "need healing" text gets displayed under our blip
 Alien.kCustomBlipDuration = 10
@@ -94,6 +94,8 @@ local networkVars =
     celeritySpeedScalar = "private float",
     storedHyperMutationTime = "private float",
     storedHyperMutationCost = "private float",
+    
+    humanIndicator = "integer (0 to 5)"
 
 }
 
@@ -149,6 +151,9 @@ function Alien:OnCreate()
     self.infestationSpeedScalar = 0
     self.celeritySpeedScalar = 0
     self.infestationSpeedUpgrade = false
+    
+    
+    self.humanIndicator = 1
     
     if Server then
     
