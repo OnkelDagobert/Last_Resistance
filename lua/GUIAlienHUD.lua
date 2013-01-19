@@ -712,8 +712,17 @@ function GUIAlienHUD:Update(deltaTime)
     //ISSUE #13
     //Update Player Score
     local current_ps = Scoreboard_GetPlayerData(Client.GetLocalPlayer():GetClientIndex(), "Score")
+    local allplayers = Scoreboard_GetALLPlayerData()
+    local place = 0
+    for i = 1, #allplayers, 1 do
+        if allplayers[i].ClientIndex == Client.GetLocalPlayer():GetClientIndex() then
+            place = i
+            break
+        end    
+    end
+    
     //local playerscorestr = string.format(Locale.ResolveString("SURV_SCORE"), current_ps)
-    local playerscorestr = string.format("SCORE: %d", current_ps)
+    local playerscorestr = string.format("SCORE: %d   ( %d/%d )", current_ps,place,#allplayers)
     self.playerScore:SetColor(kplayerScoreColor)
     self.playerScore:SetText(playerscorestr)
     

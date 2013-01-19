@@ -33,6 +33,10 @@ function Scoreboard_Clear()
     
 end
 
+function Scoreboard_GetALLPlayerData()
+    return playerData
+end
+
 // Score > Kills > Deaths > Resources
 function Scoreboard_Sort()
 
