@@ -167,7 +167,7 @@ function Player:OnKill(killer, doer, point, direction)
         if realKiller and (realKiller:isa("Player") or realKiller:isa("Bot")) then            
             killerName = realKiller:GetName()
         end        
-    elseif killer:isa("Player") then
+    elseif killer ~= nil and killer:isa("Player") then
         killerName = killer:GetName() 
         realKiller = killer 
     end
