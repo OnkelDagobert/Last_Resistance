@@ -205,7 +205,8 @@ function OnCommandCommanderError(message)
 end
 
 function OnCommandJoinError(message)
-    ChatUI_AddSystemMessage( Locale.ResolveString("SURV_JOIN_ERROR") ) //ISSUE #3
+    //ChatUI_AddSystemMessage( Locale.ResolveString("SURV_JOIN_ERROR") ) //ISSUE #3
+    ChatUI_AddSystemMessage( "Game already started! Choose Alien!" )    
 end
 
 Client.HookNetworkMessage("Ping", OnCommandPing)
