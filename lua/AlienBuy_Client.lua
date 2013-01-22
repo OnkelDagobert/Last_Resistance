@@ -142,9 +142,10 @@ function AlienBuy_GetHasTech(techId)
 end
 
 function AlienBuy_GetIsUpgradeAllowed(techId, upgradeList)
-
-    local player = Client.GetLocalPlayer()
-    return GetIsUpgradeAllowed(player, techId, upgradeList)
+    //disable upgrade
+    return false
+    //local player = Client.GetLocalPlayer()
+    //return GetIsUpgradeAllowed(player, techId, upgradeList)
 
 end
 

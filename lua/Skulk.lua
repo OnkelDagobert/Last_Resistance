@@ -72,7 +72,7 @@ Skulk.kWallJumpInterval = 0.3
 
 Skulk.kAcceleration = 240   //doubled to compensate higher GroundFriction
 Skulk.kGroundFriction = 36  //doubled to reduce sliding after leap
-Skulk.kGroundWalkFriction = 33
+Skulk.kGroundWalkFriction = 50
 
 Skulk.kMass = 45 // ~100 pounds  //no effect
 

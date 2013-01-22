@@ -161,13 +161,15 @@ function Player:OnKill(killer, doer, point, direction)
 
     // Determine the killer's player name.
     local killerName = nil
-    if killer ~= nil and not killer:isa("Player") then
-    
-        local realKiller = (killer.GetOwner and killer:GetOwner()) or nil
-        if realKiller and realKiller:isa("Player") then
+    local realKiller = nil
+    if killer ~= nil and not killer:isa("Player")  then    
+        realKiller = (killer.GetOwner and killer:GetOwner()) or nil
+        if realKiller and (realKiller:isa("Player") or realKiller:isa("Bot")) then            
             killerName = realKiller:GetName()
-        end
-        
+        end        
+    elseif killer:isa("Player") then
+        killerName = killer:GetName() 
+        realKiller = killer 
     end
 
     // Save death to server log
@@ -175,6 +177,10 @@ function Player:OnKill(killer, doer, point, direction)
         PrintToLog("%s committed suicide", self:GetName())
     elseif killerName ~= nil then
         PrintToLog("%s was killed by %s", self:GetName(), killerName)
+        self.Deaths_in_row = self.Deaths_in_row+1
+        self.Kills_in_row = 0      
+        realKiller.Deaths_in_row = 0
+        realKiller.Kills_in_row = realKiller.Kills_in_row+1
     else
         PrintToLog("%s died", self:GetName())
     end
@@ -325,14 +331,21 @@ local function UpdateChangeToSpectator(self)
                 end            
                 //Let Marine spawn without IP and Aliens without eggs (ISSUE #2)
                     //spectator:GetTeam():PutPlayerInRespawnQueue(spectator)
-                spectator:GetTeam():ReplaceRespawnPlayer(spectator)   
+                local newplayer
+                local isnil
+                isnil, newplayer = spectator:GetTeam():ReplaceRespawnPlayer(spectator)   
                              
 
                 //Give Tech/Upgrades to respawning PLAYER (not the team)
                 //Give Tech To Alien ISSUE #16                
                 if spectator:GetTeamNumber() == kTeam2Index then                    
-                    //spectator:GetTechTree():GiveUpgrade(kTechId.Leap) //give Leap
-                end   
+                    //newplayer:GetTechTree():GiveUpgrade(kTechId.Leap) //give Leap
+                end 
+
+                if newplayer.Deaths_in_row >=4 and GetGamerules():GetTeam(kTeam2Index):GetNumPlayers()<=3 then   
+                    newplayer:GiveUpgrade(kTechId.Camouflage) //give Camouflage
+                    //newplayer:GiveUpgrade(kTechId.Silence) 
+                end 
             end
             
         end
@@ -474,6 +487,9 @@ function Player:CopyPlayerDataFrom(player)
     
     // Remember this player's muted clients.
     self.mutedClients = player.mutedClients
+    
+    self.Deaths_in_row =  player.Deaths_in_row
+    self.Kills_in_row =  player.Kills_in_row
     
 end
 

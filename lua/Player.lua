@@ -195,6 +195,9 @@ local kPlayerRepelForce = 7
 // Max amount of step allowed
 Player.kMaxStepAmount = 2
 
+
+Player.Deaths_in_row = 0
+Player.Kills_in_row = 0
 -------------
 -- NETWORK --
 -------------
@@ -277,6 +280,9 @@ local networkVars =
     communicationStatus = "enum kPlayerCommunicationStatus",
     
     waitingForAutoTeamBalance = "private boolean",
+    
+    Deaths_in_row = "integer",
+    Kills_in_row = "integer",
 }
 
 ------------

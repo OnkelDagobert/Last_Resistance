@@ -707,7 +707,7 @@ function GUIAlienHUD:Update(deltaTime)
     
     //ISSUE #12
     self.ModName:SetColor(kActiveCommanderColor)
-    self.ModName:SetText("Survivor Mode")
+    self.ModName:SetText("Survivor Mode\n" .. kLRVersion)
     
     //ISSUE #13
     //Update Player Score
