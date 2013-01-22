@@ -691,8 +691,8 @@ function AlienTeam:InitTechTree()
 
     // Tier 3
      
-    self.techTree:AddResearchNode(kTechId.Xenocide,            kTechId.ShiftHive,              kTechId.None)
-    self.techTree:AddResearchNode(kTechId.Umbra,            kTechId.Spores,              kTechId.None)
+    self.techTree:AddResearchNode(kTechId.Xenocide,            kTechId.None,              kTechId.None)
+    self.techTree:AddResearchNode(kTechId.Umbra,            kTechId.None,              kTechId.None)
     --self.techTree:AddResearchNode(kTechId.WebStalk,            kTechId.BileBomb,              kTechId.None)
     self.techTree:AddResearchNode(kTechId.Vortex,            kTechId.Blink,              kTechId.ThreeHives)
     --self.techTree:AddResearchNode(kTechId.PrimalScream,            kTechId.Stomp,        kTechId.None)   
