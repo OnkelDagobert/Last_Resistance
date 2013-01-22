@@ -1,6 +1,6 @@
 <game>
-  <name>LR</name>
-  <description>Last Resistance</description>  
+  <name>Last Resistance</name>
+  <description>Last Resistance 8.1</description>  
   <server>lua/lr_Server.lua</server>  
   <client>lua/lr_Client.lua</client>  
 </game>

@@ -56,8 +56,10 @@ end
 GUIMarineHUD.kUpgradeSize = Vector(100, 100, 0)
 GUIMarineHUD.kUpgradePos = Vector(-GUIMarineHUD.kUpgradeSize.x - 16, 40, 0)
 
+GUIMarineHUD.kGameTimeTextFontSize = 26
+GUIMarineHUD.kGameTimeTextPos = Vector(20, 420, 0)
 GUIMarineHUD.kCommanderNameOffset = Vector(20, 330, 0)
-GUIMarineHUD.kplayerScoreOffset = Vector(20, 360, 0)
+GUIMarineHUD.kplayerScoreOffset = Vector(20, 390, 0)
 
 GUIMarineHUD.kMinimapYOffset = 5
 
@@ -108,8 +110,7 @@ GUIMarineHUD.kNanoShieldFontSize = 20
 GUIMarineHUD.kActiveCommanderColor = Color(246/255, 254/255, 37/255 )
 GUIMarineHUD.kplayerScoreColor = Color(37/255, 200/255, 37/255 )
 
-GUIMarineHUD.kGameTimeTextFontSize = 26
-GUIMarineHUD.kGameTimeTextPos = Vector(20, 390, 0)
+
 
 GUIMarineHUD.kLocationTextSize = 22
 GUIMarineHUD.kLocationTextOffset = Vector(180, 46, 0)
@@ -596,6 +597,9 @@ function GUIMarineHUD:TriggerInitAnimations()
 
 end
 
+GUIMarineHUD.lastPosition = nil
+GUIMarineHUD.Score_isAnimating = 0
+GUIMarineHUD.timePosChanged = 0
 function GUIMarineHUD:Update(deltaTime)
 
     PROFILE("GUIMarineHUD:Update")
@@ -628,7 +632,7 @@ function GUIMarineHUD:Update(deltaTime)
     
     //ISSUE #12
     self.ModName:SetColor(GUIMarineHUD.kActiveCommanderColor)
-    self.ModName:SetText("Survivor Mode")
+    self.ModName:SetText("Survivor Mode\n" .. kLRVersion)
     // Update commander name
     /*local commanderName = PlayerUI_GetCommanderName()
     
@@ -680,11 +684,35 @@ function GUIMarineHUD:Update(deltaTime)
         end    
     end
     
-    //local playerscorestr = string.format(Locale.ResolveString("SURV_SCORE"), current_ps)
-    local playerscorestr = string.format("SCORE: %d   ( %d/%d )", current_ps,place,#allplayers)
-    self.playerScore:SetColor(GUIMarineHUD.kplayerScoreColor)
-    self.playerScore:SetText(playerscorestr)    
 
+    
+    //local playerscorestr = string.format(Locale.ResolveString("SURV_SCORE"), current_ps)
+    local playerscorestr = string.format("SCORE: %d   ( %d/%d )", current_ps,place,#allplayers)    
+    
+    if self.Score_isAnimating > 0 then
+        self.Score_isAnimating = self.Score_isAnimating +1
+    end
+    /*if self.Score_isAnimating > 10 then
+        self.playerScore:SetColor(Color(200/255, 60/255, 0, 1))        
+    elseif self.Score_isAnimating > 20 then
+        self.playerScore:SetColor(Color(200/255, 120/255, 0, 1))       
+    elseif self.Score_isAnimating > 30 then
+        self.playerScore:SetColor(Color(150/255, 200/255, 0, 1))         
+    end*/
+    
+    if place ~= self.lastPosition then 
+        self.timePosChanged = Shared.GetTime()   
+        self.playerScore:DestroyAnimation("SCORE_TEXT_WRITE")    
+        self.playerScore:SetColor(Color(1, 0, 0, 1))        
+        self.playerScore:SetText("")
+        self.playerScore:SetText(playerscorestr,0.8,"SCORE_TEXT_WRITE") 
+        self.Score_isAnimating = 1
+    elseif Shared.GetTime() - self.timePosChanged > 2.0 then
+        self.playerScore:SetColor(GUIMarineHUD.kplayerScoreColor)
+        self.playerScore:SetText(playerscorestr)
+        self.Score_isAnimating = 0 
+    end      
+    self.lastPosition = place
     
     // Update game time
     local gameTime = PlayerUI_GetGameStartTime()

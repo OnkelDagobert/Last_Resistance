@@ -221,7 +221,7 @@ function InitBackgroundFileNames( out )
         for i = 1,100 do
             
             local searchResult = {}
-            Shared.GetMatchingFileNames( string.format("screens/%s/1.jpg", mapname, i ), false, searchResult )
+            Shared.GetMatchingFileNames( string.format("screens/%s/1.jpg", mapname ), false, searchResult )
 
             if #searchResult == 0 then
                 // found no more - must be done

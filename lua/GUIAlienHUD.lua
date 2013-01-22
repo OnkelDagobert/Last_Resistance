@@ -24,9 +24,9 @@ class 'GUIAlienHUD' (GUIAnimatedScript)
 local kTextFontName = "fonts/AgencyFB_small.fnt"
 local khINOffset = Vector(-200, 20, 0)
 local kCommanderNameOffset = Vector(20, 330, 0)
-local kplayerScoreOffset = Vector(20, 360, 0)
+local kplayerScoreOffset = Vector(20, 390, 0)
 local kGameTimeTextFontSize = 26
-local kGameTimeTextPos = Vector(20, 390, 0)
+local kGameTimeTextPos = Vector(20, 420, 0)
 local kActiveCommanderColor = Color(246/255, 254/255, 37/255 )
 local kplayerScoreColor = Color(200/255, 37/255, 37/255 )
 
