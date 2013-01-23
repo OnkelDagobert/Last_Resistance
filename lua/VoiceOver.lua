@@ -12,7 +12,7 @@ kMaxRequestsPerSide = 5
 
 kVoiceId = enum ({
 
-    'None', 'VoteEject', 'Ping',
+    'None', 'VoteEject', 'VoteConcede', 'Ping',
 
     'RequestWeld', 'MarineRequestMedpack', 'MarineRequestAmmo', 'MarineRequestOrder', 
     'MarineTaunt', 'MarineCovering', 'MarineFollowMe', 'MarineHostiles', 'MarineLetsMove',
@@ -41,6 +41,14 @@ local function VoteEjectCommander(player)
     if player then
         GetGamerules():CastVoteByPlayer(kTechId.VoteDownCommander1, player)
     end    
+    
+end
+
+local function VoteConcedeRound(player)
+
+    if player then
+        GetGamerules():CastVoteByPlayer(kTechId.VoteConcedeRound, player)
+    end  
     
 end
 
@@ -75,6 +83,7 @@ local kSoundData =
 
     // always part of the menu
     [kVoiceId.VoteEject] = { Function = VoteEjectCommander },
+    [kVoiceId.VoteConcede] = { Function = VoteConcedeRound },
 
     [kVoiceId.Ping] = { Function = PingInViewDirection, Description = "REQUEST_PING", KeyBind = "PingLocation" },
 
@@ -82,13 +91,13 @@ local kSoundData =
     [kVoiceId.RequestWeld] = { Sound = "sound/NS2.fev/marine/voiceovers/weld", Description = "REQUEST_MARINE_WELD", KeyBind = "RequestHealth", AlertTechId = kTechId.None },
     [kVoiceId.MarineRequestMedpack] = { Sound = "sound/NS2.fev/marine/voiceovers/medpack", Description = "REQUEST_MARINE_MEDPACK", KeyBind = "RequestHealth", AlertTechId = kTechId.MarineAlertNeedMedpack },
     [kVoiceId.MarineRequestAmmo] = { Sound = "sound/NS2.fev/marine/voiceovers/ammo", Description = "REQUEST_MARINE_AMMO", KeyBind = "RequestAmmo", AlertTechId = kTechId.MarineAlertNeedAmmo },
-    [kVoiceId.MarineRequestOrder] = { Sound = "sound/NS2.fev/marine/voiceovers/need_orders", Description = "REQUEST_MARINE_ORDER",  KeyBind = "RequestOrder", AlertTechId = kTechId.MarineAlertNeedOrder },
+    [kVoiceId.MarineRequestOrder] = { Sound = "sound/orders.fev/marine/voiceovers/need_orders", Description = "REQUEST_MARINE_ORDER",  KeyBind = "RequestOrder", AlertTechId = kTechId.MarineAlertNeedOrder },
     
-    [kVoiceId.MarineTaunt] = { Sound = "sound/NS2.fev/marine/voiceovers/taunt", Description = "REQUEST_MARINE_TAUNT", KeyBind = "Taunt", AlertTechId = kTechId.None },
+    [kVoiceId.MarineTaunt] = { Sound = "sound/taunts2.fev/marine/voiceovers/taunt", Description = "REQUEST_MARINE_TAUNT", KeyBind = "Taunt", AlertTechId = kTechId.None },
     [kVoiceId.MarineCovering] = { Sound = "sound/NS2.fev/marine/voiceovers/covering", Description = "REQUEST_MARINE_COVERING", AlertTechId = kTechId.None },
     [kVoiceId.MarineFollowMe] = { Sound = "sound/NS2.fev/marine/voiceovers/follow_me", Description = "REQUEST_MARINE_FOLLOWME", AlertTechId = kTechId.None },
-    [kVoiceId.MarineHostiles] = { Sound = "sound/NS2.fev/marine/voiceovers/hostiles", Description = "REQUEST_MARINE_HOSTILES", AlertTechId = kTechId.None },
-    [kVoiceId.MarineLetsMove] = { Sound = "sound/NS2.fev/marine/voiceovers/lets_move", Description = "REQUEST_MARINE_LETSMOVE", AlertTechId = kTechId.None },
+    [kVoiceId.MarineHostiles] = { Sound = "sound/Hostile spotted.fev/marine/voiceovers/hostiles", Description = "REQUEST_MARINE_HOSTILES", AlertTechId = kTechId.None },
+    [kVoiceId.MarineLetsMove] = { Sound = "sound/letsmove.fev/marine/voiceovers/lets_move", Description = "REQUEST_MARINE_LETSMOVE", AlertTechId = kTechId.None },
     
     
     // alien vote menu

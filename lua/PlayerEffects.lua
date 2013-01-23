@@ -328,7 +328,7 @@ kPlayerEffectData =
             {sound = "sound/NS2.fev/alien/lerk/taunt", classname = "Lerk", done = true},
             {sound = "sound/NS2.fev/alien/fade/taunt", classname = "Fade", done = true},
             {sound = "sound/NS2.fev/alien/onos/taunt", classname = "Onos", done = true},
-            {sound = "sound/NS2.fev/marine/voiceovers/taunt", classname = "Marine", done = true},
+            {sound = "sound/taunts2.fev/marine/voiceovers/taunt", classname = "Marine", done = true},
 
         }
     },
