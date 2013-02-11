@@ -289,6 +289,7 @@ local networkVars =
 -- MIXINS --
 ------------
 
+
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)
 AddMixinNetworkVars(ControllerMixin, networkVars)
