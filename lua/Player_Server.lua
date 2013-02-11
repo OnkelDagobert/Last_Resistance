@@ -311,28 +311,35 @@ function Player:GetDeathMapName()
 end
 
 // ISSUE 6:
-function Player:TechUnlocker()
+function TechUnlocker()
 
-if gamerules then
 
-            local team1PlayerCount = GetGamerules():GetTeam(kTeam1Index):GetNumPlayers()
-            local team2PlayerCount = GetGamerules():GetTeam(kTeam2Index):GetNumPlayers()
-            local allplayers =  team1PlayerCount + team2PlayerCount
-            local marinepercentage = (team1PlayerCount/allplayers)*100
 
-        
-            if marinepercentage < 20 then
-                print ("20")
-            elseif marinepercentage < 50 then
-                print ("50")
-            elseif marinepercentage < 80 then
-                print ("80")
-      end
-    end
-    
-    return print
-  end
-//           
+    local team1PlayerCount = GetGamerules():GetTeam(kTeam1Index):GetNumPlayers()
+    local team2PlayerCount = GetGamerules():GetTeam(kTeam2Index):GetNumPlayers()
+    local allplayers =  team1PlayerCount + team2PlayerCount
+    local marinepercentage = (team1PlayerCount/allplayers)*100
+
+    local MarineUpgrade
+
+    local marinetechtree = GetTechTree(kTeam1Index)
+    if marinepercentage < 20 then
+        Print ("20")
+        marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)
+        marinetechtree:GetTechNode(kTechId.Weapons1):SetResearched(true)
+    elseif marinepercentage < 50 then
+        Print ("50")
+        marinetechtree:GetTechNode(kTechId.Armor2):SetResearched(true)
+        marinetechtree:GetTechNode(kTechId.Weapons2):SetResearched(true)
+    elseif marinepercentage < 80 then
+        Print ("80")
+        marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
+        marinetechtree:GetTechNode(kTechId.Weapons3):SetResearched(true)
+    end      
+    marinetechtree:SetTechChanged()
+
+end
+          
             
 local function UpdateChangeToSpectator(self)
     
@@ -352,8 +359,7 @@ local function UpdateChangeToSpectator(self)
                 local spectator = self:Replace(self:GetDeathMapName(), kAlienTeamType) 
                 if oldDeathname == "marine" then
                     SendGlobalMessage(kTeamMessageTypes.PlayerMutated, spectator:GetClientIndex())  
-// ISSUE 6: 
-                    Player:TechUnlocker()
+
 //                 
                 end            
                 //Let Marine spawn without IP and Aliens without eggs (ISSUE #2)
@@ -377,6 +383,10 @@ local function UpdateChangeToSpectator(self)
                         newplayer:GiveUpgrade(kTechId.Carapace)
                     end
                 end 
+                
+                
+                // ISSUE 6: 
+                TechUnlocker()
             end
             
         end
