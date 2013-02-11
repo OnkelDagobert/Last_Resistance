@@ -51,19 +51,23 @@ if Server then
         self.med_pos =   self:GetOrigin()+ Vector(-0.3,0.5,0)       
         if self.ammopack_id == 0 or (Shared.GetEntity( self.ammopack_id ) == nil and Shared.GetTime() - self.ammopack_lt >= kLRconfig.kSupplyRespawnTime )then 
             local ammopack = CreateEntity("ammopack", self.ammo_pos, kTeam1Index)                       
-            self.ammopack_id = ammopack:GetId()           
-            ammopack.physicsModel:SetGravityEnabled(false) 
-            ammopack.physicsModel:SetCollisionEnabled(false)
-            ammopack.GetIsPermanent = true  
-            ammopack.kNumClips = kLRconfig.kSupplyAmmoClips           
+            self.ammopack_id = ammopack:GetId() 
+            if ammopack then          
+                ammopack.physicsModel:SetGravityEnabled(false) 
+                ammopack.physicsModel:SetCollisionEnabled(false)
+                ammopack.GetIsPermanent = true  
+                ammopack.kNumClips = kLRconfig.kSupplyAmmoClips 
+            end          
             self.ammopack_lt = 0
         end 
         if self.medpack_id == 0 or (Shared.GetEntity( self.medpack_id ) == nil and Shared.GetTime() - self.medpack_lt >= kLRconfig.kSupplyRespawnTime) then            
             local medpack = CreateEntity("medpack", self.med_pos, kTeam1Index) 
-            self.medpack_id = medpack:GetId()               
-            medpack.physicsModel:SetGravityEnabled(false) 
-            medpack.physicsModel:SetCollisionEnabled(false)
-            medpack.GetIsPermanent = true
+            self.medpack_id = medpack:GetId() 
+            if medpack then              
+                medpack.physicsModel:SetGravityEnabled(false) 
+                medpack.physicsModel:SetCollisionEnabled(false)
+                medpack.GetIsPermanent = true
+            end
             self.medpack_lt = 0
         end  
                   
@@ -72,9 +76,9 @@ if Server then
     function ResourcePoint:OnUpdateDropPosition(deltatime) 
         self.ammo_pos =  self:GetOrigin()+ Vector(0.3,0.5,0)
         self.med_pos =   self:GetOrigin()+ Vector(-0.3,0.5,0)
-        if self.ammopack_id ~= 0 then
+        if self.ammopack_id ~= 0  then
             local ammopack = Shared.GetEntity( self.ammopack_id )
-            if ammopack ~= nil then                
+            if ammopack ~= nil and ammopack.physicsModel ~= nil then                
                 local tcoords = ammopack.physicsModel:GetCoords()
                 tcoords.origin= self.ammo_pos
                 ammopack.physicsModel:SetCoords(tcoords)                
@@ -86,7 +90,7 @@ if Server then
         
         if self.medpack_id ~= 0 then
             local medpack = Shared.GetEntity( self.medpack_id )
-            if medpack ~= nil then
+            if medpack ~= nil and medpack.physicsModel ~= nil then
                 local tcoords = medpack.physicsModel:GetCoords()
                 tcoords.origin= self.med_pos
                 medpack.physicsModel:SetCoords(tcoords)                

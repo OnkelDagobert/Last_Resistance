@@ -26,7 +26,8 @@ kPregameLength      = 15
 kTagModeMaxLength   = 30
 kTimeToReadyRoom    = 15
 kRoundTimeLimit     = 6
-local kPauseToSocializeBeforeMapcycle = 30
+local kPauseToSocializeBeforeMapcycle = 5
+local kRoundNb = 0
 
 
 // How often to send the "No commander" message to players in seconds.
@@ -199,11 +200,19 @@ if Server then
             
             // On end game, check for map switch conditions
             if state == kGameState.Team1Won or state == kGameState.Team2Won then
-            
-                if MapCycle_TestCycleMap() then
-                    self.timeToCycleMap = Shared.GetTime() + kPauseToSocializeBeforeMapcycle
+                kRoundNb = kRoundNb+1
+                if kLRconfig.kMaxRounds then
+                    if kRoundNb >= kLRconfig.kMaxRounds then
+                        self.timeToCycleMap = Shared.GetTime() + kPauseToSocializeBeforeMapcycle
+                    else
+                        self.timeToCycleMap = nil
+                    end
                 else
-                    self.timeToCycleMap = nil
+                    if MapCycle_TestCycleMap() then
+                        self.timeToCycleMap = Shared.GetTime() + kPauseToSocializeBeforeMapcycle
+                    else
+                        self.timeToCycleMap = nil
+                    end
                 end
                 
             end
@@ -257,6 +266,11 @@ if Server then
         self.disconnectedPlayerResources = { }
         
         self.justCreated = true
+		
+		
+		local kRoundNb = 0
+		
+		
         
     end
 

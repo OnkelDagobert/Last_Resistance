@@ -993,7 +993,7 @@ end
  * Returns true if the player is currently on a team and the game has started.
  */
 function Player:GetIsPlaying()
-    return (self.gameStarted or PlayerUI_GetGameState() == kGameState.TagMode )and (self:GetTeamNumber() == kTeam1Index or self:GetTeamNumber() == kTeam2Index)
+    return (self.gameStarted or (PlayerUI_GetGameState and PlayerUI_GetGameState() == kGameState.TagMode) )and (self:GetTeamNumber() == kTeam1Index or self:GetTeamNumber() == kTeam2Index)
 end
 
 local function HasTeamAssigned(self)

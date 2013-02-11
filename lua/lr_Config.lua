@@ -63,6 +63,8 @@ if Server then
 
     function  makeDefaultConfig()
         
+		kLRconfig.kMaxRounds				 = 6 	 //Max Rounds Played per map ( 0 to limit by time )
+		
         kLRconfig.kPregameLength             = 3     //Time before Tagmode (no crosshair)
         kLRconfig.kTagModeMaxLength          = 30    //After this time Server decides who will be alien
         kLRconfig.kRoundTimeLimit            = 360   //6min
