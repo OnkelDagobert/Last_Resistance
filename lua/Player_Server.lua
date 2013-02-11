@@ -369,9 +369,13 @@ local function UpdateChangeToSpectator(self)
                     //newplayer:GetTechTree():GiveUpgrade(kTechId.Leap) //give Leap
                 end 
 
-                if newplayer.Deaths_in_row >=4 and GetGamerules():GetTeam(kTeam2Index):GetNumPlayers()<=3 then   
-                    newplayer:GiveUpgrade(kTechId.Camouflage) //give Camouflage
-                    //newplayer:GiveUpgrade(kTechId.Silence) 
+                if newplayer.Deaths_in_row >=4  then   
+                    if GetGamerules():GetTeam(kTeam2Index):GetNumPlayers()<=3 then
+                        newplayer:GiveUpgrade(kTechId.Camouflage) //give Camouflage
+                        //newplayer:GiveUpgrade(kTechId.Silence) 
+                    else
+                        newplayer:GiveUpgrade(kTechId.Carapace)
+                    end
                 end 
             end
             

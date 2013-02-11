@@ -60,8 +60,9 @@ end
 if Server then
 
     function Grenade:ProcessHit(targetHit, surface)
-        if targetHit and (HasMixin(targetHit, "Live") and GetGamerules():CanEntityDoDamageTo(self, targetHit)) and self:GetOwner() ~= targetHit and 
-           (not targetHit:isa("Whip") or targetHit:GetIsOnFire()) then
+        /*if targetHit and (HasMixin(targetHit, "Live") and GetGamerules():CanEntityDoDamageTo(self, targetHit)) and self:GetOwner() ~= targetHit and 
+           (not targetHit:isa("Whip") or targetHit:GetIsOnFire()) then*/
+        if not(targetHit and (HasMixin(targetHit, "Marine"))) then
             self:Detonate(targetHit)            
         else
             if self:GetVelocity():GetLength() > 2 then

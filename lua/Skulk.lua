@@ -17,6 +17,8 @@ Script.Load("lua/Mixins/GroundMoveMixin.lua")
 Script.Load("lua/Mixins/CameraHolderMixin.lua")
 Script.Load("lua/WallMovementMixin.lua")
 Script.Load("lua/DissolveMixin.lua")
+Script.Load("lua/Weapons/Alien/Shockwave.lua")
+Script.Load("lua/DamageMixin.lua")
 
 class 'Skulk' (Alien)
 
@@ -397,6 +399,15 @@ function Skulk:UpdatePosition(velocity, time)
 
     end
       
+      
+    if  self.leaping and hitEntities and hitEntities[1] and hitEntities[1].kMapName == "marine" then
+        //Print("Test")        
+        if(Server) then
+            hitEntities[1]:SetStun(0.5)
+            //self:DoDamage(30,hitEntities[1], self:GetOrigin() )
+        end
+        
+    end
     if self.leaping and oldYSpeed >1 and newYSpeed < 0.5 then        
         requestedVelocity.x = requestedVelocity.x * 0.8
         requestedVelocity.z = requestedVelocity.z * 0.8

@@ -185,7 +185,7 @@ kKillTeamReward = 0
 
 
 // MARINE DAMAGE
-kRifleDamage = 10
+kRifleDamage = 12
 kRifleDamageType = kDamageType.Normal
 kRifleClipSize = 75
 
@@ -211,7 +211,7 @@ kAxeDamageType = kDamageType.Structural
 
 kGrenadeLauncherGrenadeDamage = 130
 kGrenadeLauncherGrenadeDamageType = kDamageType.Structural
-kGrenadeLauncherClipSize = 4
+kGrenadeLauncherClipSize = 8
 kGrenadeLauncherGrenadeDamageRadius = 8
 kGrenadeLifetime = 2.0
 
@@ -221,15 +221,15 @@ kShotgunClipSize = 8
 kShotgunBulletsPerShot = 10
 kShotgunRange = 30
 
-kNadeLauncherClipSize = 4
+kNadeLauncherClipSize = 8
 
 kFlamethrowerDamage = 7.5
 kFlamethrowerDamageType = kDamageType.Flame
-kFlamethrowerClipSize = 30
+kFlamethrowerClipSize = 40
 
 kBurnDamagePerStackPerSecond = 3
 kFlamethrowerMaxStacks = 20
-kFlamethrowerBurnDuration = 6
+kFlamethrowerBurnDuration = 10
 kFlamethrowerStackRate = 0.4
 kFlameRadius = 1.8
 kFlameDamageStackWeight = 0.5
@@ -271,9 +271,9 @@ kNanoShieldDamageReductionDamage = 0.5
 // ALIEN DAMAGE
 kBiteDamage = 90
 kBiteDamageType = kDamageType.Normal
-kBiteEnergyCost = 20
+kBiteEnergyCost = 5
 
-kLeapEnergyCost = 45
+kLeapEnergyCost = 50
 
 kParasiteDamage = 10
 kParasiteDamageType = kDamageType.Normal

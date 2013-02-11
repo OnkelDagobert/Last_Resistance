@@ -121,6 +121,10 @@ function GrenadeLauncher:OnTag(tagName)
     // We have a special case when loading the last shell in the clip.
     elseif tagName == "load_shell_sound" and self.clip < (self:GetClipSize() - 1) then
         self:TriggerEffects("grenadelauncher_reload_shell")
+        LoadBullet(self)
+        LoadBullet(self)
+        LoadBullet(self)
+        LoadBullet(self)
     elseif tagName == "load_shell_sound" then
         self:TriggerEffects("grenadelauncher_reload_shell_last")
     elseif tagName == "reload_start" then
