@@ -1,2 +1,0 @@
-shader = "materials/editor/billboard.surface_shader"
-emissiveMap = "materials/editor/GameRulez_Veil.dds"
