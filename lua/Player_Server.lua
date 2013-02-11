@@ -310,6 +310,30 @@ function Player:GetDeathMapName()
     return Spectator.kMapName
 end
 
+// ISSUE 6:
+function Player:TechUnlocker()
+
+if gamerules then
+
+            local team1PlayerCount = GetGamerules():GetTeam(kTeam1Index):GetNumPlayers()
+            local team2PlayerCount = GetGamerules():GetTeam(kTeam2Index):GetNumPlayers()
+            local allplayers =  team1PlayerCount + team2PlayerCount
+            local marinepercentage = (team1PlayerCount/allplayers)*100
+
+        
+            if marinepercentage < 20 then
+                print ("20")
+            elseif marinepercentage < 50 then
+                print ("50")
+            elseif marinepercentage < 80 then
+                print ("80")
+      end
+    end
+    
+    return print
+  end
+//           
+            
 local function UpdateChangeToSpectator(self)
     
     if not self:GetIsAlive() and not self:isa("Spectator") then
@@ -327,7 +351,10 @@ local function UpdateChangeToSpectator(self)
                 local oldDeathname = self:GetDeathMapName()              
                 local spectator = self:Replace(self:GetDeathMapName(), kAlienTeamType) 
                 if oldDeathname == "marine" then
-                    SendGlobalMessage(kTeamMessageTypes.PlayerMutated, spectator:GetClientIndex())   
+                    SendGlobalMessage(kTeamMessageTypes.PlayerMutated, spectator:GetClientIndex())  
+// ISSUE 6: 
+                    Player:TechUnlocker()
+//                 
                 end            
                 //Let Marine spawn without IP and Aliens without eggs (ISSUE #2)
                     //spectator:GetTeam():PutPlayerInRespawnQueue(spectator)
