@@ -126,11 +126,10 @@ function OnCommandScores(scoreTable)
         status = Locale.ResolveString("STATUS_LERK")
     elseif scoreTable.status == kPlayerStatus.Onos then
         status = Locale.ResolveString("STATUS_ONOS")
-    end
-    
+    end    
     Scoreboard_SetPlayerData(scoreTable.clientId, scoreTable.entityId, scoreTable.playerName, scoreTable.teamNumber, scoreTable.score,
                              scoreTable.kills, scoreTable.deaths, math.floor(scoreTable.resources), scoreTable.isCommander, scoreTable.isRookie,
-                             status, scoreTable.isSpectator)
+                             status, scoreTable.isSpectator,scoreTable.Deaths_in_row, scoreTable.Kills_in_row )
     
 end
 

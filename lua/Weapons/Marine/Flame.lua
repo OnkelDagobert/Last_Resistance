@@ -18,7 +18,7 @@ Flame.kFireEffect         = PrecacheAsset("cinematics/marine/flamethrower/burnin
 Flame.kFireWallEffect     = PrecacheAsset("cinematics/marine/flamethrower/burning_vertical_surface.cinematic")
 
 Flame.kDamageRadius       = 1.8
-Flame.kLifeTime           = 5.6
+Flame.kLifeTime           = 10
 Flame.kThinkTime          = .6
 Flame.kDamage             = 20
 

@@ -59,6 +59,11 @@ GUIScoreboard.kCommanderFontColor = Color(1, 1, 0, 1)
 GUIScoreboard.kWhiteColor = Color(1,1,1,1)
 
 local kConnectionProblemsIcon = PrecacheAsset("ui/ethernet-connect.dds")
+local kOnFlamesIcon1 = PrecacheAsset("ui/flame_1.dds")
+local kOnFlamesIcon2 = PrecacheAsset("ui/flame_2.dds")
+local kOnFlamesIcon3 = PrecacheAsset("ui/flame_3.dds")
+local kAlien_CamouflageIcon = PrecacheAsset("ui/alien_Camouflage.dds")
+local kAlien_CarapaceIcon = PrecacheAsset("ui/alien_Carapace.dds")
 
 function GUIScoreboard:OnResolutionChanged(oldX, oldY, newX, newY)
 
@@ -157,6 +162,8 @@ function GUIScoreboard:Initialize()
     self.connectionProblemsIcon:SetIsVisible(false)
     
     self.connectionProblemsDetector = CreateTokenBucket(8, 20)
+    
+
     
     self.mousePressed = { LMB = { Down = nil }, RMB = { Down = nil } }
 
@@ -461,6 +468,10 @@ function GUIScoreboard:Update(deltaTime)
         
     end
     
+    
+    
+    
+    
 end
 
 function GUIScoreboard:UpdateTeam(updateTeam)
@@ -525,6 +536,8 @@ function GUIScoreboard:UpdateTeam(updateTeam)
         local currentPosition = Vector(player["Background"]:GetPosition())
         local playerStatus = playerRecord.Status
         local isSpectator = playerRecord.IsSpectator
+        local Deaths_in_row = playerRecord.Deaths_in_row
+        local Kills_in_row = playerRecord.Kills_in_row
         
         if playerRecord.IsCommander then
             score = "*"
@@ -545,6 +558,34 @@ function GUIScoreboard:UpdateTeam(updateTeam)
                 self.playerHighlightItem:SetColor(localPlayerHighlightColor)
             end
         end
+        
+        player["onFlames"]:SetColor(Color(1, 1, 1, 1))
+        if (Kills_in_row and Kills_in_row >= 10) then
+            player["onFlames"]:SetTexture(kOnFlamesIcon3)            
+            player["onFlames"]:SetIsVisible(true)
+        elseif (Kills_in_row and Kills_in_row >= 6) then
+            player["onFlames"]:SetTexture(kOnFlamesIcon2)            
+            player["onFlames"]:SetIsVisible(true) 
+        elseif (Kills_in_row and Kills_in_row >= 3) then
+            player["onFlames"]:SetTexture(kOnFlamesIcon1)            
+            player["onFlames"]:SetIsVisible(true)        
+        else
+            if Deaths_in_row >=4  then
+                if numPlayers <=3 then
+                    player["onFlames"]:SetTexture(kAlien_CamouflageIcon)  
+                    player["onFlames"]:SetIsVisible(true) 
+                    player["onFlames"]:SetColor(Color(1, 0, 0, 1))
+                else
+                    player["onFlames"]:SetTexture(kAlien_CarapaceIcon)  
+                    player["onFlames"]:SetIsVisible(true)
+                end        
+            else
+                player["onFlames"]:SetIsVisible(false)
+            end
+        end
+        
+        
+
         
         player["Name"]:SetText(playerName)
         
@@ -645,6 +686,8 @@ function GUIScoreboard:CreatePlayerItem()
     playerItem:SetTexture("ui/hud_elements.dds")
     playerItem:SetTextureCoordinates(0, 0, 0.558, 0.16)
     
+
+    
     // Player name text item.
     local playerNameItem = GUIManager:CreateTextItem()
     playerNameItem:SetFontName(GUIScoreboard.kFontName)
@@ -665,6 +708,19 @@ function GUIScoreboard:CreatePlayerItem()
     playerNameItem:AddChild(playerVoiceIcon)
     
     local currentColumnX = Client.GetScreenWidth() / 6
+    
+    
+    local onFlames = GUIManager:CreateGraphicItem()
+    onFlames:SetAnchor(GUIItem.Left, GUIItem.Top)
+    onFlames:SetTextAlignmentX(GUIItem.Align_Min)
+    onFlames:SetTextAlignmentY(GUIItem.Align_Min)
+    onFlames:SetPosition(Vector(currentColumnX-21, 4, 0))
+    onFlames:SetSize(Vector(20, 20, 0))
+    onFlames:SetLayer(kGUILayerScoreboard)
+    onFlames:SetTexture(kConnectionProblemsIcon)
+    onFlames:SetColor(Color(1, 1, 1, 1))
+    onFlames:SetIsVisible(false)
+    playerItem:AddChild(onFlames)
     
     // Status text item.
     local statusItem = GUIManager:CreateTextItem()
@@ -742,7 +798,7 @@ function GUIScoreboard:CreatePlayerItem()
     pingItem:SetColor(Color(1, 1, 1, 1))
     playerItem:AddChild(pingItem)
     
-    return { Background = playerItem, Name = playerNameItem, Voice = playerVoiceIcon, Status = statusItem, Score = scoreItem, Kills = killsItem, Deaths = deathsItem, Resources = resItem, Ping = pingItem }
+    return { Background = playerItem, onFlames = onFlames, Name = playerNameItem, Voice = playerVoiceIcon, Status = statusItem, Score = scoreItem, Kills = killsItem, Deaths = deathsItem, Resources = resItem, Ping = pingItem }
     
 end
 

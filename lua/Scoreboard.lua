@@ -94,6 +94,8 @@ function Scoreboard_OnResetGame()
         playerRecord.Resources = 0
         playerRecord.Status = ""
         playerRecord.IsSpectator = false
+        playerRecord.Deaths_in_row = 0
+        playerRecord.Kills_in_row = 0
         
     end 
 
@@ -106,7 +108,66 @@ function Scoreboard_OnClientDisconnect(clientIndex)
     
 end
 
-function Scoreboard_SetPlayerData(clientIndex, entityId, playerName, teamNumber, score, kills, deaths, resources, isCommander, isRookie, status, isSpectator)
+
+function Scoreboard_SetPlayerData(clientIndex, entityId, playerName, teamNumber, score, kills, deaths, resources, isCommander, isRookie, status, isSpectator, Deaths_in_row, Kills_in_row )
+
+    // Lookup record for player and update it
+    for i = 1, table.maxn(playerData) do
+    
+        local playerRecord = playerData[i]
+        
+        if playerRecord.ClientIndex == clientIndex then
+
+            // Update entry
+            playerRecord.EntityId = entityId
+            playerRecord.Name = playerName
+            playerRecord.EntityTeamNumber = teamNumber
+            playerRecord.Score = score
+            playerRecord.Kills = kills
+            playerRecord.Deaths = deaths
+            playerRecord.IsCommander = isCommander
+            playerRecord.IsRookie = isRookie
+            playerRecord.Resources = resources
+            playerRecord.Status = status
+            playerRecord.IsSpectator = isSpectator
+            playerRecord.Deaths_in_row = Deaths_in_row
+            playerRecord.Kills_in_row = Kills_in_row
+            
+            Scoreboard_Sort()
+            
+            return
+            
+        end
+        
+    end
+        
+    // Otherwise insert a new record
+    local playerRecord = {}
+    playerRecord.ClientIndex = clientIndex
+    playerRecord.EntityId = entityId
+    playerRecord.Name = playerName
+    playerRecord.EntityTeamNumber = teamNumber
+    playerRecord.Score = score
+    playerRecord.Kills = kills
+    playerRecord.Deaths = deaths
+    playerRecord.IsCommander = isCommander
+    playerRecord.IsRookie = isRookie
+    playerRecord.Resources = 0
+    playerRecord.Ping = 0
+    playerRecord.Status = status
+    playerRecord.IsSpectator = isSpectator
+    playerRecord.Deaths_in_row = Deaths_in_row
+    playerRecord.Kills_in_row = Kills_in_row
+    
+    table.insert(playerData, playerRecord )
+    
+    Scoreboard_Sort()
+    
+end
+
+
+
+/*function Scoreboard_SetPlayerData(clientIndex, entityId, playerName, teamNumber, score, kills, deaths, resources, isCommander, isRookie, status, isSpectator)
 
     // Lookup record for player and update it
     for i = 1, table.maxn(playerData) do
@@ -156,7 +217,7 @@ function Scoreboard_SetPlayerData(clientIndex, entityId, playerName, teamNumber,
     
     Scoreboard_Sort()
     
-end
+end*/
 
 function Scoreboard_SetPing(clientIndex, ping)
 

@@ -294,7 +294,9 @@ local kScoresMessage =
     isCommander = "boolean",
     isRookie = "boolean",
     status = "enum kPlayerStatus",
-    isSpectator = "boolean"
+    isSpectator = "boolean",
+    Deaths_in_row = "integer",
+    Kills_in_row = "integer"
 }
 
 function BuildScoresMessage(scorePlayer, sendToPlayer)
@@ -318,7 +320,8 @@ function BuildScoresMessage(scorePlayer, sendToPlayer)
     t.isRookie = ConditionalValue(isEnemy, false, scorePlayer:GetIsRookie())
     t.status = ConditionalValue(isEnemy, kPlayerStatus.Hidden, scorePlayer:GetPlayerStatusDesc())
     t.isSpectator = ConditionalValue(isEnemy, false, scorePlayer:isa("Spectator"))
-    
+    t.Deaths_in_row = scorePlayer.Deaths_in_row
+    t.Kills_in_row = scorePlayer.Kills_in_row   
     return t
     
 end

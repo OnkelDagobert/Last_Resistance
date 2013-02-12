@@ -1489,6 +1489,7 @@ if Server then
                 start = true                
             end
            if start then
+                TechUnlocker()
                 self:SetGameState(kGameState.Started) 
                 self.team1:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)
                 self.team2:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)   

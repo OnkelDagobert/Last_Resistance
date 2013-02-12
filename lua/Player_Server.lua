@@ -178,9 +178,17 @@ function Player:OnKill(killer, doer, point, direction)
     elseif killerName ~= nil then
         PrintToLog("%s was killed by %s", self:GetName(), killerName)
         self.Deaths_in_row = self.Deaths_in_row+1
-        self.Kills_in_row = 0      
+        self.Kills_in_row = 0
+        if realKiller.Deaths_in_row > 4 then
+            realKiller:GiveUpgrade(kTechId.Camouflage)
+        end 
         realKiller.Deaths_in_row = 0
         realKiller.Kills_in_row = realKiller.Kills_in_row+1
+        
+        
+        if realKiller:GetTeamNumber() == kTeam2Index then       
+            realKiller:Heal(kSkulkHealth)
+        end
     else
         PrintToLog("%s died", self:GetName())
     end
@@ -325,16 +333,16 @@ function TechUnlocker()
     local marinetechtree = GetTechTree(kTeam1Index)
     if marinepercentage < 20 then
         Print ("20")
-        marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)
-        marinetechtree:GetTechNode(kTechId.Weapons1):SetResearched(true)
+        marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
+        marinetechtree:GetTechNode(kTechId.Weapons3):SetResearched(true)
     elseif marinepercentage < 50 then
         Print ("50")
         marinetechtree:GetTechNode(kTechId.Armor2):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons2):SetResearched(true)
     elseif marinepercentage < 80 then
         Print ("80")
-        marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
-        marinetechtree:GetTechNode(kTechId.Weapons3):SetResearched(true)
+        marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)
+        marinetechtree:GetTechNode(kTechId.Weapons1):SetResearched(true)
     end      
     marinetechtree:SetTechChanged()
 
@@ -359,7 +367,8 @@ local function UpdateChangeToSpectator(self)
                 local spectator = self:Replace(self:GetDeathMapName(), kAlienTeamType) 
                 if oldDeathname == "marine" then
                     SendGlobalMessage(kTeamMessageTypes.PlayerMutated, spectator:GetClientIndex())  
-
+                    // ISSUE 6: 
+                    TechUnlocker()
 //                 
                 end            
                 //Let Marine spawn without IP and Aliens without eggs (ISSUE #2)
@@ -381,12 +390,14 @@ local function UpdateChangeToSpectator(self)
                         //newplayer:GiveUpgrade(kTechId.Silence) 
                     else
                         newplayer:GiveUpgrade(kTechId.Carapace)
+                        newplayer:SetArmor(kSkulkArmorFullyUpgradedAmount,false)   
+                        newplayer:AdjustMaxArmor(kSkulkArmorFullyUpgradedAmount)  
+                        newplayer:SetArmor(kSkulkArmorFullyUpgradedAmount,false)                                     
                     end
                 end 
                 
                 
-                // ISSUE 6: 
-                TechUnlocker()
+                
             end
             
         end
