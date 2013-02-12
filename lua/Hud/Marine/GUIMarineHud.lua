@@ -777,7 +777,7 @@ function GUIMarineHUD:Update(deltaTime)
 
     local useColor = kIconColors[kMarineTeamType]
     if not MarineUI_GetHasArmsLab() then
-        useColor = Color(1, 0, 0, 1)
+        useColor = Color(0.26, 1.97, 0.16, 1)
     end
     self.weaponLevel:SetColor(useColor)
     self.armorLevel:SetColor(useColor)
