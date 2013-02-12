@@ -338,7 +338,7 @@ function TechUnlocker()
         //Print ("20")
         if first_20 then
             GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
-            GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            //GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             first_20 = false
         end
         marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
@@ -346,7 +346,7 @@ function TechUnlocker()
     elseif marinepercentage < 50 then
          if first_50 then
             GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
-            GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            //GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             first_50 = false
         end
         //Print ("50")
@@ -355,7 +355,7 @@ function TechUnlocker()
     elseif marinepercentage < 80 then
         if first_80 then
             GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
-            GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            //GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             first_80 = false
         end
         //Print ("80")
