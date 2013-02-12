@@ -319,6 +319,9 @@ function Player:GetDeathMapName()
 end
 
 // ISSUE 6:
+local first_20 = true
+local first_50 = true
+local first_80 = true
 function TechUnlocker()
 
 
@@ -332,17 +335,33 @@ function TechUnlocker()
 
     local marinetechtree = GetTechTree(kTeam1Index)
     if marinepercentage < 20 then
-        Print ("20")
+        //Print ("20")
+        if first_20 then
+            GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            first_20 = false
+        end
         marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons3):SetResearched(true)
     elseif marinepercentage < 50 then
-        Print ("50")
+         if first_50 then
+            GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            first_50 = false
+        end
+        //Print ("50")
         marinetechtree:GetTechNode(kTechId.Armor2):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons2):SetResearched(true)
     elseif marinepercentage < 80 then
-        Print ("80")
+        if first_80 then
+            GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            first_80 = false
+        end
+        //Print ("80")
         marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons1):SetResearched(true)
+        
     end      
     marinetechtree:SetTechChanged()
 
