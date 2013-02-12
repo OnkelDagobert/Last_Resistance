@@ -295,6 +295,10 @@ function BuildTechData()
         { [kTechDataId] = kTechId.DropJetpack,   [kTechDataMapName] = Jetpack.kMapName, [kTechDataDisplayName] = "JETPACK", [kTechIDShowEnables] = false, [kTechDataTooltipInfo] =  "JETPACK_TOOLTIP", [kTechDataModel] = Jetpack.kModelName, [kTechDataCostKey] = kJetpackCost, [kStructureAttachId] = kTechId.PrototypeLab, [kStructureAttachRange] = kArmoryWeaponAttachRange, [kStructureAttachRequiresPower] = true },
         { [kTechDataId] = kTechId.DropExosuit,   [kTechDataMapName] = Exosuit.kMapName, [kTechDataDisplayName] = "EXOSUIT", [kTechIDShowEnables] = false, [kTechDataTooltipInfo] =  "EXOSUIT_TOOLTIP", [kTechDataModel] = Exosuit.kModelName, [kTechDataCostKey] = kExosuitCost, [kStructureAttachId] = kTechId.PrototypeLab, [kStructureAttachRange] = kArmoryWeaponAttachRange, [kStructureAttachRequiresPower] = true },
        
+        //ISSUE 23:
+        //dropped by marine:
+       { [kTechDataId] = kTechId.LaySentry,    [kTechDataMapName] = LaySentry.kMapName,         [kTechDataHint] = "SENTRY_HINT",		[kTechDataDisplayName] = "SENTRY_TURRET",   [kTechDataTooltipInfo] = "SENTRY_HINT",		[kTechDataModel] = Sentry.kModelName,      [kTechDataCostKey] = kMineCost },
+       
         // Marine upgrades
         { [kTechDataId] = kTechId.NerveGas,              [kTechDataDisplayName] = "NERVE_GAS",  [kTechDataCostKey] = kNerveGasCost, [kTechDataHotkey] = Move.S, [kTechDataTooltipInfo] = "NERVE_GAS_TOOLTIP"},        
         { [kTechDataId] = kTechId.FlamethrowerAlt,       [kTechDataDisplayName] = "FLAMETHROWER_ALT", [kTechIDShowEnables] = false, [kTechDataCostKey] = kFlamethrowerAltCost },        

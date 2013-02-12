@@ -2322,7 +2322,8 @@ function Player:GetWeaponClip()
     if weapon ~= nil then
         if weapon:isa("ClipWeapon") then
             return weapon:GetClip()
-        elseif weapon:isa("LayMines") then
+            //ISSUE 23:
+        elseif weapon:isa("LayMines") or weapon:isa("LaySentry") then
             return weapon:GetMinesLeft()
         end
     end

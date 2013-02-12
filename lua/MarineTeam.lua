@@ -235,7 +235,7 @@ function MarineTeam:InitTechTree()
     
     // When adding marine upgrades that morph structures, make sure to add to GetRecycleCost() also
     self.techTree:AddBuildNode(kTechId.InfantryPortal,            kTechId.None,                kTechId.None)
-    self.techTree:AddBuildNode(kTechId.Sentry,                    kTechId.RoboticsFactory,     kTechId.SentryBattery)
+    self.techTree:AddBuildNode(kTechId.Sentry,                    kTechId.None,                kTechId.None)
     self.techTree:AddBuildNode(kTechId.Armory,                    kTechId.CommandStation,      kTechId.None)  
     self.techTree:AddBuildNode(kTechId.ArmsLab,                   kTechId.Armory,              kTechId.None)  
     self.techTree:AddManufactureNode(kTechId.MAC,                 kTechId.None,                kTechId.None)

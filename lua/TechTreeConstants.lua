@@ -71,8 +71,9 @@ kTechId = enum({
     // MAC (build bot) abilities
     'MACEMP', 'Welding',
     
+    //ISSUE 23:
     // Weapons 
-    'Rifle', 'Pistol', 'Shotgun', 'Claw', 'Minigun', 'GrenadeLauncher', 'Flamethrower', 'Axe', 'LayMines', 'Welder',
+    'Rifle', 'Pistol', 'Shotgun', 'Claw', 'Minigun', 'GrenadeLauncher', 'Flamethrower', 'Axe', 'LayMines', 'Welder', 'LaySentry',
     
     // Armor
     'Jetpack', 'JetpackFuelTech', 'JetpackArmorTech', 'Exosuit', 'ExosuitLockdownTech', 'ExosuitUpgradeTech',

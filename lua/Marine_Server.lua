@@ -134,7 +134,10 @@ function Marine:InitWeapons()
     self:GiveItem(Pistol.kMapName)
     self:GiveItem(Axe.kMapName)
     self:GiveItem(Builder.kMapName)
-    
+    //ISSUE 23:
+    self:GiveItem(LaySentry.kMapName)
+    self:GiveItem(Welder.kMapName)
+     
     self:SetActiveWeapon(Rifle.kMapName)
 
 end

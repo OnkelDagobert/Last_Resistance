@@ -165,6 +165,9 @@ function Marine:OnCreate()
     InitMixin(self, ParasiteMixin)
     InitMixin(self, RagdollMixin)
     
+    //ISSUE 23:
+    self.unlockedWeapons = {kTechId.LaySentry}
+    
     //self.loopingSprintSoundEntId = Entity.invalidId
     
     if Server then

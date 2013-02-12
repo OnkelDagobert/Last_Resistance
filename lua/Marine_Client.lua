@@ -674,6 +674,15 @@ function Marine:UpdateGhostModel()
         self.ghostStructureCoords = weapon:GetGhostModelCoords()
         self.ghostStructureValid = weapon:GetIsPlacementValid()
         self.showGhostModel = weapon:GetShowGhostModel()
+        
+        
+        //ISSUE 23:
+        	elseif weapon and weapon:isa("LaySentry") then
+    
+		self.currentTechId = kTechId.Sentry
+        self.ghostStructureCoords = weapon:GetGhostModelCoords()
+        self.ghostStructureValid = weapon:GetIsPlacementValid()
+        self.showGhostModel = weapon:GetShowGhostModel()
     
     end
 
