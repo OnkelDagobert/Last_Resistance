@@ -403,7 +403,7 @@ function Skulk:UpdatePosition(velocity, time)
     if  self.leaping and hitEntities and hitEntities[1] and hitEntities[1].kMapName == "marine" then
         //Print("Test")        
         if(Server) then
-            hitEntities[1]:SetStun(0.5)
+            hitEntities[1]:SetStun(1.0)
             //self:DoDamage(30,hitEntities[1], self:GetOrigin() )
         end
         
