@@ -107,7 +107,7 @@ Player.kChatSound                   = PrecacheAsset("sound/NS2.fev/common/chat")
 Player.kRumbleSoundEffect           = PrecacheAsset("sound/NS2.fev/alien/onos/rumble")
 Player.kFallingDirtEffect           = PrecacheAsset("cinematics/alien/onos/dirt_fall.cinematic")
 
-Player.kupgrade_complete            = PrecacheAsset("sound/NS2.fev/marine/voiceovers/commander/upgrade_complete")
+Player.kupgrade_complete            = PrecacheAsset("sound/NS2.fev/marine/common/upgrade")
 
 
 Player.kRunIdleSpeed = 1

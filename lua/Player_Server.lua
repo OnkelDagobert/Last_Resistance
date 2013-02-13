@@ -341,7 +341,7 @@ function TechUnlocker()
             //GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             first_20 = false
         end
-        marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
+        //marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons3):SetResearched(true)
     elseif marinepercentage < 50 then
          if first_50 then
@@ -350,7 +350,7 @@ function TechUnlocker()
             first_50 = false
         end
         //Print ("50")
-        marinetechtree:GetTechNode(kTechId.Armor2):SetResearched(true)
+        //marinetechtree:GetTechNode(kTechId.Armor2):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons2):SetResearched(true)
     elseif marinepercentage < 80 then
         if first_80 then
@@ -359,7 +359,7 @@ function TechUnlocker()
             first_80 = false
         end
         //Print ("80")
-        marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)
+        //marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons1):SetResearched(true)
         
     end      
