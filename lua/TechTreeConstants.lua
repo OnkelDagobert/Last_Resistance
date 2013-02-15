@@ -73,7 +73,7 @@ kTechId = enum({
     
     //ISSUE 23:
     // Weapons 
-    'Rifle', 'Pistol', 'Shotgun', 'Claw', 'Minigun', 'GrenadeLauncher', 'Flamethrower', 'Axe', 'LayMines', 'Welder', 'LaySentry',
+    'Rifle', 'Pistol', 'Shotgun', 'Claw', 'Minigun', 'GrenadeLauncher', 'Flamethrower', 'Axe', 'LayMines', 'Welder', 'LaySentry', 'LayBarricade'
     
     // Armor
     'Jetpack', 'JetpackFuelTech', 'JetpackArmorTech', 'Exosuit', 'ExosuitLockdownTech', 'ExosuitUpgradeTech',

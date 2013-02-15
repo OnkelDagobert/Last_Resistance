@@ -684,6 +684,12 @@ function Marine:UpdateGhostModel()
         self.ghostStructureValid = weapon:GetIsPlacementValid()
         self.showGhostModel = weapon:GetShowGhostModel()
     
+            elseif weapon and weapon:isa("LayBarricade") then
+    
+		self.currentTechId = kTechId.Clog
+        self.ghostStructureCoords = weapon:GetGhostModelCoords()
+        self.ghostStructureValid = weapon:GetIsPlacementValid()
+        self.showGhostModel = weapon:GetShowGhostModel()
     end
 
 end

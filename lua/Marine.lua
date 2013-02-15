@@ -167,6 +167,7 @@ function Marine:OnCreate()
     
     //ISSUE 23:
     self.unlockedWeapons = {kTechId.LaySentry}
+    self.unlockedWeapons = {kTechId.LayBarricade}
     
     //self.loopingSprintSoundEntId = Entity.invalidId
     

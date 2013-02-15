@@ -160,7 +160,7 @@ Script.Load("lua/Jetpack.lua")
 
 //ISSUE 23:
 Script.Load("lua/Weapons/Marine/LaySentry.lua")
-
+Script.Load("lua/Weapons/Marine/LayBarricade.lua")
 // Holiday 2012
 Script.Load("lua/Weapons/SnowBallThrower.lua")
 

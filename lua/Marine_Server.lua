@@ -136,6 +136,7 @@ function Marine:InitWeapons()
     self:GiveItem(Builder.kMapName)
     //ISSUE 23:
     self:GiveItem(LaySentry.kMapName)
+    self:GiveItem(LayBarricade.kMapName)
     self:GiveItem(Welder.kMapName)
      
     self:SetActiveWeapon(Rifle.kMapName)
@@ -322,6 +323,7 @@ function Marine:GiveItem(itemMapName)
                 continue = false
                 setActive = false
             end
+            
             
         elseif itemMapName == Welder.kMapName then
         
