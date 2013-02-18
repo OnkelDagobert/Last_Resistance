@@ -14,10 +14,10 @@ class 'LaySentry' (Weapon)
 LaySentry.kMapName = "laysentry"
 
 local kDropModelName = PrecacheAsset("models/marine/mine/mine_pile.model")
-local kHeldModelName = PrecacheAsset("models/marine/welder/builder.model") //PrecacheAsset("models/marine/mine/mine_3p.model")
+local kHeldModelName = PrecacheAsset("models/marine/welder/builder.model")
 
-local kViewModelName = PrecacheAsset("models/marine/welder/welder_view.model") //PrecacheAsset("models/marine/mine/mine_view.model")
-local kAnimationGraph = PrecacheAsset("models/marine/welder/welder_view.animation_graph") //PrecacheAsset("models/marine/mine/mine_view.animation_graph")
+local kViewModelName = PrecacheAsset("models/marine/welder/welder_view.model")
+local kAnimationGraph = PrecacheAsset("models/marine/welder/welder_view.animation_graph")
 
 local kPlacementDistance = 2
 
@@ -33,7 +33,7 @@ function LaySentry:OnCreate()
     
     InitMixin(self, PickupableWeaponMixin)
     
-    self.minesLeft = 1
+    self.minesLeft = kNumMines
     self.droppingMine = false
     
 end
@@ -88,7 +88,7 @@ function LaySentry:GetDropMapName()
 end
 
 function LaySentry:GetHUDSlot()
-    return 4
+    return 6
 end
 
 function LaySentry:OnTag(tagName)
@@ -144,12 +144,6 @@ function LaySentry:OnPrimaryAttack(player)
                 self.droppingMine = true
 				self:PerformPrimaryAttack(player)
 				self:OnHolster(player)
-                player:RemoveWeapon(self)
-                player:SwitchWeapon(1)
-                
-                if Server then                
-                    DestroyEntity(self)
-                end
             else
             
                 self.droppingMine = false

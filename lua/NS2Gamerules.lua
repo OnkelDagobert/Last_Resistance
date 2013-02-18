@@ -92,7 +92,7 @@ if Server then
 
     NS2Gamerules.kMarineStartSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/game_start")
     NS2Gamerules.kAlienStartSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/game_start")
-    NS2Gamerules.kCountdownSound = PrecacheAsset("sound/countdown.fev/common/countdown")    
+    NS2Gamerules.kCountdownSound = PrecacheAsset("sound/countdown.fev/untitled/event00")    
     NS2Gamerules.kfirstMutation = PrecacheAsset("sound/NS2.fev/common/menu_confirm")
     //NS2Gamerules.kTagModeSound = PrecacheAsset("sound/lr.fev/gameplay/SURVIVOR_TAG")
     //NS2Gamerules.kTagModeSound = PrecacheAsset("sound/tagmode_sound.fev/untitled/SURVIVOR_TAG")

@@ -501,7 +501,7 @@ if Server then
         if self.lastBatteryCheckTime == nil or (time > self.lastBatteryCheckTime + .5) then
         
             // Update if we're powered or not
-            self.attachedToBattery = false
+            self.attachedToBattery = true
             
             local ents = GetEntitiesForTeamWithinRange("SentryBattery", self:GetTeamNumber(), self:GetOrigin(), SentryBattery.kRange)
             for index, ent in ipairs(ents) do

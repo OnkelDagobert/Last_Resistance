@@ -264,7 +264,7 @@ kARCMinRange = 7
 
 kWeapons1DamageScalar = 1.1
 kWeapons2DamageScalar = 1.2
-kWeapons3DamageScalar = 1.3
+kWeapons3DamageScalar = 1.5
 
 kNanoShieldDamageReductionDamage = 0.5
 
