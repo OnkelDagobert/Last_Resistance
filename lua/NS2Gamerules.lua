@@ -1483,7 +1483,9 @@ if Server then
             local start = false;
             if self.timeSinceGameStateChanged > kTagModeMaxLength then
                 local players = self.team1:GetPlayers()
-                players[math.random( #players )]:Kill()
+                if(#players > 0) then 
+                    players[math.random( #players )]:Kill()
+                end
                 start = true                
             elseif self:GetTeam(kTeam2Index):GetNumPlayers() > 0 then
                 start = true                
