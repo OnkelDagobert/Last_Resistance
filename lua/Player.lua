@@ -31,6 +31,7 @@ Script.Load("lua/EntityChangeMixin.lua")
 Script.Load("lua/BadgeMixin.lua")
 Script.Load("lua/CorrodeMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
+Script.Load("lua/AFKMixin.lua")
 
 if Client then
     Script.Load("lua/HelpMixin.lua")
@@ -997,6 +998,10 @@ end
  */
 function Player:GetIsPlaying()
     return (self.gameStarted or (PlayerUI_GetGameState and PlayerUI_GetGameState() == kGameState.TagMode) )and (self:GetTeamNumber() == kTeam1Index or self:GetTeamNumber() == kTeam2Index)
+end
+
+function Player:GetIsOnPlayingTeam()
+    return self:GetTeamNumber() == kTeam1Index or self:GetTeamNumber() == kTeam2Index
 end
 
 local function HasTeamAssigned(self)
@@ -3056,4 +3061,32 @@ function Player:GetIsWaitingForTeamBalance()
     return self.waitingForAutoTeamBalance
 end
 
+function Player:GetPositionForMinimap()
+
+    local tunnels = GetEntitiesWithinRange("Tunnel", self:GetOrigin(), 30)
+    local isInTunnel = #tunnels > 0
+    
+    if isInTunnel then
+        return tunnels[1]:GetRelativePosition(self:GetOrigin())        
+    else
+        return self:GetOrigin()
+    end
+
+end
+
+function Player:GetDirectionForMinimap()
+
+    local zAxis = self:GetViewAngles():GetCoords().zAxis
+    local direction = math.atan2(zAxis.x, zAxis.z)
+    
+    local tunnels = GetEntitiesWithinRange("Tunnel", self:GetOrigin(), 30)
+    local isInTunnel = #tunnels > 0
+    
+    if isInTunnel then
+        direction = direction + tunnels[1]:GetMinimapYawOffset()
+    end
+    
+    return direction
+
+end
 Shared.LinkClassToMap("Player", Player.kMapName, networkVars, true)
