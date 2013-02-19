@@ -92,7 +92,7 @@ if Server then
 
     NS2Gamerules.kMarineStartSound = PrecacheAsset("sound/NS2.fev/marine/voiceovers/game_start")
     NS2Gamerules.kAlienStartSound = PrecacheAsset("sound/NS2.fev/alien/voiceovers/game_start")
-    NS2Gamerules.kCountdownSound = PrecacheAsset("sound/countdown.fev/common/countdown")    
+    NS2Gamerules.kCountdownSound = PrecacheAsset("sound/countdown.fev/untitled/event00")    
     NS2Gamerules.kfirstMutation = PrecacheAsset("sound/NS2.fev/common/menu_confirm")
     //NS2Gamerules.kTagModeSound = PrecacheAsset("sound/lr.fev/gameplay/SURVIVOR_TAG")
     //NS2Gamerules.kTagModeSound = PrecacheAsset("sound/tagmode_sound.fev/untitled/SURVIVOR_TAG")
@@ -1483,15 +1483,17 @@ if Server then
             local start = false;
             if self.timeSinceGameStateChanged > kTagModeMaxLength then
                 local players = self.team1:GetPlayers()
+                
                 if(#players > 0) then 
-                    players[math.random( #players )]:Kill()
+                players[math.random( #players )]:Kill()
                 end
+                
                 start = true                
             elseif self:GetTeam(kTeam2Index):GetNumPlayers() > 0 then
                 start = true                
             end
            if start then
-                TechUnlocker()
+                Techunlocker()
                 self:SetGameState(kGameState.Started) 
                 self.team1:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)
                 self.team2:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)   

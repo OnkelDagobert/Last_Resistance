@@ -269,9 +269,9 @@ kOnosBackBackwardSpeedScalar = .2
 
 kPistolWeight = 0.09
 kRifleWeight = 0.13
-kGrenadeLauncherWeight = 0.2
-kFlamethrowerWeight = 0.25
-kShotgunWeight = 0.14
+kGrenadeLauncherWeight = 0.1
+kFlamethrowerWeight = 0.1
+kShotgunWeight = 0.05
 
 // set to -1 to disable or a positive number
 kResourcesPerNode = -1

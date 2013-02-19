@@ -71,7 +71,7 @@ float4 SFXDarkVisionPS(PS_INPUT input) : COLOR0
     float4 inputPixel = tex2D(baseTextureSampler, input.texCoord);
 
 //ISSUE 19:
-    const float offset = 0.0005 + depth1.g * 0.000006;
+    const float offset = 0.001 + depth1.g * 0.000001;
 	float  depth2 = tex2D(depthTextureSampler, input.texCoord + float2(-offset, -offset)).r;
 	float  depth3 = tex2D(depthTextureSampler, input.texCoord + float2(-offset, offset)).r;
 	float  depth4 = tex2D(depthTextureSampler, input.texCoord + float2(offset,  -offset)).r;
