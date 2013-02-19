@@ -9,9 +9,9 @@
 // ========= For more information, visit us at http://www.unknownworlds.com =====================		
 		
 // HEALTH AND ARMOR		
-kMarineHealth = 100	kMarineArmor = 30	kMarinePointValue = 10
-kJetpackHealth = 100	kJetpackArmor = 30	kJetpackPointValue = 20
-kExosuitHealth = 100	kExosuitArmor = 400	kExosuitPointValue = 40
+kMarineHealth = 100	kMarineArmor = 30	kMarinePointValue = 30
+kJetpackHealth = 100	kJetpackArmor = 30	kJetpackPointValue = 70
+kExosuitHealth = 100	kExosuitArmor = 400	kExosuitPointValue = 100
 		
 kSkulkHealth = 70	kSkulkArmor = 10	kSkulkPointValue = 0
 kGorgeHealth = 150	kGorgeArmor = 70	kGorgePointValue = 0

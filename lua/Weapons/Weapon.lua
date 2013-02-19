@@ -10,7 +10,8 @@ Script.Load("lua/ScriptActor.lua")
 Script.Load("lua/Mixins/ModelMixin.lua")
 Script.Load("lua/TeamMixin.lua")
 Script.Load("lua/DamageMixin.lua")
-
+Script.Load("lua/GameEffectsMixin.lua")
+Script.Load("lua/OnFlamesMixin.lua")
 class 'Weapon' (ScriptActor)
 
 Weapon.kMapName = "weapon"
@@ -37,6 +38,8 @@ local networkVars =
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)
 AddMixinNetworkVars(TeamMixin, networkVars)
+AddMixinNetworkVars(GameEffectsMixin, networkVars)
+AddMixinNetworkVars(OnFlamesMixin, networkVars)
 
 function Weapon:OnCreate()
 
@@ -46,6 +49,8 @@ function Weapon:OnCreate()
     InitMixin(self, ModelMixin)
     InitMixin(self, TeamMixin)
     InitMixin(self, DamageMixin)
+    InitMixin(self, GameEffectsMixin)
+    InitMixin(self, OnFlamesMixin)
     
     self:SetPhysicsGroup(PhysicsGroup.WeaponGroup)
     

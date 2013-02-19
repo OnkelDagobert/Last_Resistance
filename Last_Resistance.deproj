@@ -1285,6 +1285,9 @@
     <filename>lua\ObstacleMixin.lua</filename>
   </file>
   <file>
+    <filename>lua\OnFlamesMixin.lua</filename>
+  </file>
+  <file>
     <filename>lua\Onos.lua</filename>
   </file>
   <file>

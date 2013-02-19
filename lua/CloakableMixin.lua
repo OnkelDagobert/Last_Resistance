@@ -95,7 +95,13 @@ function CloakableMixin:GetCanCloak()
         canCloak = false
     end
     
-    return canCloak and self:GetChargeTime() == 0
+    local has_research = true    
+    if(self.Kills_in_row>=1) then        
+        has_research = false
+             
+    end
+    
+    return canCloak and has_research and self:GetChargeTime() == 0
 
 end
 

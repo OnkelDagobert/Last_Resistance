@@ -61,8 +61,15 @@ local function UpdateCamouflage(self, deltaTime)
     // Have entities disappear if they have camouflage and are still
     local velocity = self:GetVelocity():GetLength()
     local currentTime = Shared.GetTime()
-    
-    local canCamouflage = not self.GetCanCamouflage or self:GetCanCamouflage()
+    local has_research = false
+    local node = self:GetTechTree():GetTechNode(kTechId.Camouflage)
+    //Print("test2")
+    if(node ~= nil) then
+        //Print("test10000")
+        has_research = node:GetResearched()
+        //if(has_research)    then Print("aggg") end         
+    end
+    local canCamouflage = (not self.GetCanCamouflage or self:GetCanCamouflage()) and has_research
     canCamouflage = canCamouflage and currentTime > (self.timeLastUncamouflageTriggered + CamouflageMixin.kBreakingDelay)
     
     if self:GetIsAlive() and GetHasCamouflageUpgrade(self) and velocity <= CamouflageMixin.kVelocityThreshold and canCamouflage then    

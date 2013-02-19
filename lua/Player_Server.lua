@@ -175,22 +175,31 @@ function Player:OnKill(killer, doer, point, direction)
     // Save death to server log
     if killer == self then        
         PrintToLog("%s committed suicide", self:GetName())
+        self.Kills_in_row = 0        
     elseif killerName ~= nil then
         PrintToLog("%s was killed by %s", self:GetName(), killerName)
         self.Deaths_in_row = self.Deaths_in_row+1
         self.Kills_in_row = 0
-        if realKiller.Deaths_in_row > 4 then
-            realKiller:GiveUpgrade(kTechId.Camouflage)
-        end 
         realKiller.Deaths_in_row = 0
         realKiller.Kills_in_row = realKiller.Kills_in_row+1
         
-        
+        //Heal Alien after kill
         if realKiller:GetTeamNumber() == kTeam2Index then       
             realKiller:Heal(kSkulkHealth)
         end
+        
+        //remove Camo after one kill
+        local node = realKiller:GetTechTree():GetTechNode(kTechId.Camouflage)
+        if(node ~= nil) then
+            node:SetResearched(false)     
+            realKiller:GetTechTree():SetTechNodeChanged(node, "")   
+            realKiller:GetTechTree():QueueOnResearchComplete(kTechId.Camouflage)
+            realKiller:GetTechTree():SendTechTreeUpdates({realKiller})
+        end
+        
     else
         PrintToLog("%s died", self:GetName())
+        self.Kills_in_row = 0
     end
 
     // Go to third person so we can see ragdoll and avoid HUD effects (but keep short so it's personal)
@@ -340,6 +349,8 @@ function TechUnlocker()
             GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             //GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             first_20 = false
+            first_50 = true
+            first_80 = true
         end
         //marinetechtree:GetTechNode(kTechId.Armor3):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons3):SetResearched(true)
@@ -347,7 +358,9 @@ function TechUnlocker()
          if first_50 then
             GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             //GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            first_20 = true
             first_50 = false
+            first_80 = true
         end
         //Print ("50")
         //marinetechtree:GetTechNode(kTechId.Armor2):SetResearched(true)
@@ -356,12 +369,17 @@ function TechUnlocker()
         if first_80 then
             GetGamerules():GetTeam(kTeam1Index):PlayPrivateTeamSound(Player.kupgrade_complete)
             //GetGamerules():GetTeam(kTeam2Index):PlayPrivateTeamSound(Player.kupgrade_complete)
+            first_20 = true
+            first_50 = true
             first_80 = false
         end
         //Print ("80")
         //marinetechtree:GetTechNode(kTechId.Armor1):SetResearched(true)
         marinetechtree:GetTechNode(kTechId.Weapons1):SetResearched(true)
-        
+    else 
+        first_20 = true
+        first_50 = true
+        first_80 = true 
     end      
     marinetechtree:SetTechChanged()
 
@@ -441,6 +459,22 @@ function Player:OnUpdatePlayer(deltaTime)
     
     if self:GetTeamNumber() == kTeam2Index then
         self:CalcHumanIndicator()
+    end
+    
+    
+            
+    //Set Marine Weapon OnFlames
+    
+    if self:GetIsAlive() and self:GetTeamNumber() == kTeam1Index then   
+        if (self.Kills_in_row and self.Kills_in_row >= 10) then
+            self:GetActiveWeapon():SetOnFire(3)
+        elseif (self.Kills_in_row and self.Kills_in_row >= 6) then
+            self:GetActiveWeapon():SetOnFire(2)
+        elseif (self.Kills_in_row and self.Kills_in_row >= 3) then
+            self:GetActiveWeapon():SetOnFire(1)
+        else
+            //self:GetActiveWeapon():SetOnFire(1)
+        end        
     end
     
 end
