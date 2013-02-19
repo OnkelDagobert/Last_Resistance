@@ -12,6 +12,9 @@ OnFlamesMixin.type = "Fire"
 
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/burning.surface_shader")
 Shared.PrecacheSurfaceShader("cinematics/vfx_materials/burning_view.surface_shader")
+Shared.PrecacheSurfaceShader("materials/custom/burning_small.surface_shader")
+Shared.PrecacheSurfaceShader("materials/custom/burning_med.surface_shader")
+Shared.PrecacheSurfaceShader("materials/custom/burning_big.surface_shader")
 
 local kBurnBigCinematic = PrecacheAsset("cinematics/marine/flamethrower/burn_big.cinematic")
 local kBurnHugeCinematic = PrecacheAsset("cinematics/marine/flamethrower/burn_huge.cinematic")
