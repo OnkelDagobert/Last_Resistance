@@ -20,9 +20,13 @@ Script.Load("lua/Hud/GUIInventory.lua")
 Script.Load("lua/TechTreeConstants.lua")
 
 
+
 class 'GUIMarineHUD' (GUIAnimatedScript)
 
 GUIMarineHUD.kUpgradesTexture = "ui/buildmenu.dds"
+
+local kAlien_CamouflageIcon = PrecacheAsset("ui/alien_Camouflage.dds")
+local kAlien_CarapaceIcon = PrecacheAsset("ui/alien_Carapace.dds")
 
 local POWER_OFF = 1
 local POWER_ON = 2
@@ -60,6 +64,9 @@ GUIMarineHUD.kGameTimeTextFontSize = 26
 GUIMarineHUD.kGameTimeTextPos = Vector(20, 420, 0)
 GUIMarineHUD.kCommanderNameOffset = Vector(20, 330, 0)
 GUIMarineHUD.kplayerScoreOffset = Vector(20, 390, 0)
+
+GUIMarineHUD.kCamoIconPos = Vector(20, 460, 0)
+GUIMarineHUD.kCamoTextPos = Vector(50, 460, 0)
 
 GUIMarineHUD.kMinimapYOffset = 5
 
@@ -245,6 +252,24 @@ function GUIMarineHUD:Initialize()
     self.gameTimeText:SetTextAlignmentX(GUIItem.Align_Min)
     self.gameTimeText:SetTextAlignmentY(GUIItem.Align_Min)
     self.gameTimeText:AddAsChildTo(self.background)
+    
+      
+    self.camoIcon = GUIManager:CreateGraphicItem()
+    self.camoIcon:SetLayer(kGUILayerPlayerHUDForeground2)
+    self.camoIcon:SetFontName(GUIMarineHUD.kTextFontName)
+    self.camoIcon:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.camoIcon:SetColor(kBrightColor)
+    self.camoIcon:SetTextAlignmentX(GUIItem.Align_Min)
+    self.camoIcon:SetTextAlignmentY(GUIItem.Align_Min)
+    self.background:AddChild(self.camoIcon)
+    self.camoText = self:CreateAnimatedTextItem()
+    self.camoText:SetLayer(kGUILayerPlayerHUDForeground2)
+    self.camoText:SetFontName(GUIMarineHUD.kTextFontName)
+    self.camoText:SetAnchor(GUIItem.Left, GUIItem.Top)
+    self.camoText:SetColor(kBrightColor)
+    self.camoText:SetTextAlignmentX(GUIItem.Align_Min)
+    self.camoText:SetTextAlignmentY(GUIItem.Align_Min)
+    self.camoText:AddAsChildTo(self.background)
     
     if self.minimapEnabled then
         self:InitializeMinimap()
@@ -487,6 +512,14 @@ function GUIMarineHUD:Reset()
     self.gameTimeText:SetScale(GetScaledVector() * 1.1)
     self.gameTimeText:SetPosition(GUIMarineHUD.kGameTimeTextPos)
     
+    //self.camoIcon:SetUniformScale(self.scale)
+    //self.camoIcon:SetScale(GetScaledVector() * 1.1)
+    self.camoIcon:SetPosition(GUIMarineHUD.kCamoIconPos)
+    self.camoIcon:SetSize(Vector(30, 30, 0))
+    self.camoText:SetUniformScale(self.scale)
+    self.camoText:SetScale(GetScaledVector() * 1.1)
+    self.camoText:SetPosition(GUIMarineHUD.kCamoTextPos)
+    
     self.statusDisplay:Reset(self.scale)
     self.eventDisplay:Reset(self.scale)
     self.resourceDisplay:Reset(self.scale)
@@ -677,14 +710,36 @@ function GUIMarineHUD:Update(deltaTime)
     local current_ps = Scoreboard_GetPlayerData(Client.GetLocalPlayer():GetClientIndex(), "Score")
     local allplayers = Scoreboard_GetALLPlayerData()
     local place = 0
+    local NbAliens = 0
+    local NbAliensDS = 0
     for i = 1, #allplayers, 1 do
         if allplayers[i].ClientIndex == Client.GetLocalPlayer():GetClientIndex() then
-            place = i
-            break
+            place = i            
         end    
+        if allplayers[i].EntityTeamNumber == kTeam2Index then
+            NbAliens = NbAliens + 1
+            if allplayers[i].Deaths_in_row > 4 then
+                NbAliensDS = NbAliensDS +1
+            end
+        end
     end
     
-
+    if NbAliens <= 3 then
+        self.camoIcon:SetTexture(kAlien_CamouflageIcon)
+        self.camoIcon:SetIsVisible(true)
+        self.camoIcon:SetColor(Color(1, 0, 0, 1))
+    else
+        self.camoIcon:SetTexture(kAlien_CarapaceIcon)
+        self.camoIcon:SetColor(Color(1, 1, 1, 1))
+        self.camoIcon:SetIsVisible(true)
+    end
+    local camoTextStr = string.format(": %d Alien", NbAliensDS) 
+    self.camoText:SetText(camoTextStr)
+    if(NbAliensDS) then
+        self.camoText:SetColor(Color(1, 1, 1, 0.8))
+    else
+        self.camoText:SetColor(Color(1, 0, 0, 1))
+    end
     
     //local playerscorestr = string.format(Locale.ResolveString("SURV_SCORE"), current_ps)
     local playerscorestr = string.format("SCORE: %d   ( %d/%d )", current_ps,place,#allplayers)    

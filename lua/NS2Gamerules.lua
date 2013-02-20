@@ -1492,12 +1492,12 @@ if Server then
             elseif self:GetTeam(kTeam2Index):GetNumPlayers() > 0 then
                 start = true                
             end
-           if start then
-                Techunlocker()
+           if start then                
                 self:SetGameState(kGameState.Started) 
                 self.team1:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)
                 self.team2:PlayPrivateTeamSound(NS2Gamerules.kfirstMutation)   
-                SendGlobalMessage( kTeamMessageTypes.SurviveStart)                            
+                SendGlobalMessage( kTeamMessageTypes.SurviveStart) 
+                if Techunlocker then Techunlocker() end                           
            else
                              
            end
