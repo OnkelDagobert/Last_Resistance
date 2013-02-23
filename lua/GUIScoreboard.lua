@@ -570,8 +570,8 @@ function GUIScoreboard:UpdateTeam(updateTeam)
             player["onFlames"]:SetTexture(kOnFlamesIcon1)            
             player["onFlames"]:SetIsVisible(true)        
         else
-            if Deaths_in_row >=4 and updateTeam["TeamNumber"] == kTeam2Index then
-                if numPlayers <=3 then
+            if Deaths_in_row >=kDeathStreakforCamo and updateTeam["TeamNumber"] == kTeam2Index then
+                if numPlayers <=kMaxAliensforCamo then
                     player["onFlames"]:SetTexture(kAlien_CamouflageIcon)  
                     player["onFlames"]:SetIsVisible(true) 
                     player["onFlames"]:SetColor(Color(1, 0, 0, 1))

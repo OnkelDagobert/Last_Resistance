@@ -23,14 +23,18 @@ local kConfigUpdateMessage =
     kPregameLength          = "integer (1 to 9999)",
     kTagModeMaxLength       = "integer (1 to 9999)",
     kRoundTimeLimit         = "integer (1 to 9999)", 
-    kTimeToReadyRoom        = "integer (1 to 9999)"
+    kTimeToReadyRoom        = "integer (1 to 9999)",
+    kDeathStreakforCamo     = "integer (1 to 9999)",
+    kMaxAliensforCamo       = "integer (1 to 9999)"
 }
 function BuildConfigUpdateMessage(config)
     local t = {}    
     t.kPregameLength            = config.kPregameLength
     t.kTagModeMaxLength         = config.kTagModeMaxLength
     t.kRoundTimeLimit           = config.kRoundTimeLimit
-    t.kTimeToReadyRoom          = config.kAftergameLength   
+    t.kTimeToReadyRoom          = config.kAftergameLength  
+    t.kDeathStreakforCamo       = config.kDeathStreakforCamo 
+    t.kMaxAliensforCamo         = config.kMaxAliensforCamo
     return t        
 end
 Shared.RegisterNetworkMessage("LRConfig", kConfigUpdateMessage)
@@ -40,7 +44,9 @@ if Client then
         kPregameLength      = message.kPregameLength
         kTagModeMaxLength   = message.kTagModeMaxLength
         kRoundTimeLimit     = message.kRoundTimeLimit   
-        kTimeToReadyRoom    = message.kTimeToReadyRoom	             
+        kTimeToReadyRoom    = message.kTimeToReadyRoom	    
+        kDeathStreakforCamo = message.kDeathStreakforCamo         
+        kMaxAliensforCamo   = message.kMaxAliensforCamo
     end
     Client.HookNetworkMessage("LRConfig", OnConfigUpdateMessage)
 
@@ -107,8 +113,8 @@ if Server then
         kLRconfig.Aliens.TechResearched             = {}
         kLRconfig.Aliens.TechResearched.Leap        = true
         kLRconfig.Aliens.TechResearched.Xenocide    = false
-        
-        
+        kLRconfig.kDeathStreakforCamo               = 4
+        kLRconfig.kMaxAliensforCamo                 = 3
         WriteDefaultConfigFile(lrconfigFileName, kLRconfig)
     end
 

@@ -718,13 +718,13 @@ function GUIMarineHUD:Update(deltaTime)
         end    
         if allplayers[i].EntityTeamNumber == kTeam2Index then
             NbAliens = NbAliens + 1
-            if allplayers[i].Deaths_in_row > 4 then
+            if allplayers[i].Deaths_in_row >= kDeathStreakforCamo then
                 NbAliensDS = NbAliensDS +1
             end
         end
     end
     
-    if NbAliens <= 3 then
+    if NbAliens <= kMaxAliensforCamo then
         self.camoIcon:SetTexture(kAlien_CamouflageIcon)
         self.camoIcon:SetIsVisible(true)
         self.camoIcon:SetColor(Color(1, 0, 0, 1))
@@ -735,7 +735,7 @@ function GUIMarineHUD:Update(deltaTime)
     end
     local camoTextStr = string.format(": %d Alien", NbAliensDS) 
     self.camoText:SetText(camoTextStr)
-    if(NbAliensDS) then
+    if NbAliensDS == 0 then
         self.camoText:SetColor(Color(1, 1, 1, 0.8))
     else
         self.camoText:SetColor(Color(1, 0, 0, 1))

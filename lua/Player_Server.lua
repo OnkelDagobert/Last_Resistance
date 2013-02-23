@@ -404,10 +404,12 @@ local function UpdateChangeToSpectator(self)
                 local spectator = self:Replace(self:GetDeathMapName(), kAlienTeamType) 
                 if oldDeathname == "marine" then
                     SendGlobalMessage(kTeamMessageTypes.PlayerMutated, spectator:GetClientIndex())  
-                    // ISSUE 6: 
-                    TechUnlocker()
+                    
 //                 
-                end            
+                end         
+                // ISSUE 6: 
+                TechUnlocker()
+   
                 //Let Marine spawn without IP and Aliens without eggs (ISSUE #2)
                     //spectator:GetTeam():PutPlayerInRespawnQueue(spectator)
                 local newplayer
