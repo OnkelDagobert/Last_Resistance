@@ -12,8 +12,8 @@ local kEndStates = enum({ 'AlienPlayerWin', 'MarinePlayerWin', 'AlienPlayerLose'
 
 local kEndIconTextures = { [kEndStates.AlienPlayerWin] = "ui/alien_victory.dds",
                            [kEndStates.MarinePlayerWin] = "ui/marine_victory.dds",
-                           [kEndStates.AlienPlayerLose] = "ui/alien_defeat.dds",
-                           [kEndStates.MarinePlayerLose] = "ui/marine_defeat.dds" }
+                           [kEndStates.AlienPlayerLose] = "ui/marine_victory.dds",
+                           [kEndStates.MarinePlayerLose] = "ui/alien_victory.dds" }
 
 local kEndIconWidth = 1024
 local kEndIconHeight = 600

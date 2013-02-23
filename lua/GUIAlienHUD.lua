@@ -22,7 +22,8 @@ class 'GUIAlienHUD' (GUIAnimatedScript)
 
 
 local kTextFontName = "fonts/AgencyFB_small.fnt"
-local khINOffset = Vector(-200, 20, 0)
+//local khINOffset = Vector(-200, 20, 0)
+local khINOffset = Vector(-50, 20, 0)
 local kCommanderNameOffset = Vector(20, 330, 0)
 local kplayerScoreOffset = Vector(20, 390, 0)
 local kGameTimeTextFontSize = 26
@@ -164,7 +165,7 @@ function GUIAlienHUD:Initialize()
     self.hIn:SetFontName(kTextFontName)
     self.hIn:SetTextAlignmentX(GUIItem.Align_Min)
     self.hIn:SetTextAlignmentY(GUIItem.Align_Min)
-    self.hIn:SetAnchor(GUIItem.Right, GUIItem.Top)
+    self.hIn:SetAnchor(GUIItem.Middle, GUIItem.Top)
     self.hIn:SetLayer(kGUILayerPlayerHUDForeground1)
     self.hIn:SetFontName(GUIMarineHUD.kCommanderFontName)
     self.hIn:SetColor(Color(1,1,1,1))
